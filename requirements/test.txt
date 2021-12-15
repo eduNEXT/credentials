@@ -62,14 +62,16 @@ coreapi==2.3.3
     # via
     #   -r requirements/base.txt
     #   django-rest-swagger
+    #   drf-yasg
     #   openapi-codec
 coreschema==0.0.4
     # via
     #   -r requirements/base.txt
     #   coreapi
+    #   drf-yasg
 coverage==6.2
     # via -r requirements/test.in
-cryptography==36.0.0
+cryptography==36.0.1
     # via
     #   -r requirements/base.txt
     #   pyjwt
@@ -97,6 +99,7 @@ distlib==0.3.4
     #   django-storages
     #   djangorestframework
     #   drf-jwt
+    #   drf-yasg
     #   edx-ace
     #   edx-auth-backends
     #   edx-credentials-themes
@@ -146,16 +149,19 @@ django-waffle==2.2.1
     #   edx-toggles
 django-webpack-loader==1.4.1
     # via -r requirements/base.txt
-djangorestframework==3.13.0
+djangorestframework==3.13.1
     # via
     #   -r requirements/base.txt
     #   django-rest-swagger
     #   drf-jwt
+    #   drf-yasg
     #   edx-drf-extensions
 drf-jwt==1.19.1
     # via
     #   -r requirements/base.txt
     #   edx-drf-extensions
+drf-yasg==1.20.0
+    # via -r requirements/base.txt
 edx-ace==1.4.1
     # via -r requirements/base.txt
 edx-auth-backends==4.0.1
@@ -218,6 +224,10 @@ importlib-metadata==4.8.2
     # via
     #   -r requirements/base.txt
     #   markdown
+inflection==0.5.1
+    # via
+    #   -r requirements/base.txt
+    #   drf-yasg
 iniconfig==1.1.1
     # via pytest
 isort==5.10.1
@@ -235,7 +245,7 @@ jinja2==3.0.3
     #   coreschema
 lazy==1.4
     # via bok-choy
-lazy-object-proxy==1.6.0
+lazy-object-proxy==1.7.1
     # via astroid
 markdown==3.3.6
     # via -r requirements/base.txt
@@ -270,6 +280,7 @@ packaging==21.3
     # via
     #   -r requirements/base.txt
     #   bleach
+    #   drf-yasg
     #   pytest
     #   tox
 path==16.2.0
@@ -405,6 +416,14 @@ requests-oauthlib==1.3.0
     #   social-auth-core
 responses==0.16.0
     # via -r requirements/test.in
+ruamel.yaml==0.17.17
+    # via
+    #   -r requirements/base.txt
+    #   drf-yasg
+ruamel.yaml.clib==0.2.6
+    # via
+    #   -r requirements/base.txt
+    #   ruamel.yaml
 sailthru-client==2.2.3
     # via
     #   -r requirements/base.txt
@@ -478,7 +497,7 @@ toml==0.10.2
     #   pylint
     #   pytest
     #   tox
-tomli==1.2.2
+tomli==1.2.3
     # via black
 tox==3.24.4
     # via -r requirements/test.in
@@ -497,6 +516,7 @@ uritemplate==4.1.1
     # via
     #   -r requirements/base.txt
     #   coreapi
+    #   drf-yasg
 urllib3==1.26.7
     # via
     #   -r requirements/base.txt

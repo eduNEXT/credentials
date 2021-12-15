@@ -59,6 +59,7 @@ THIRD_PARTY_APPS = [
     # TODO Set in EXTRA_APPS via configuration
     "edx_credentials_themes",
     "rest_framework_swagger",
+    "drf_yasg",
     "hijack",
     "xss_utils",
 ]
