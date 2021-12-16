@@ -14,19 +14,7 @@ class ProgramCreditRequest(MessageType):
             from_address = "no-reply@" + site.domain
 
         if user_email:
-            self.options.update(
-                {
-                    "reply_to": [user_email],
-                }
-            )
+            self.options.update({"reply_to": [user_email]})
 
-        self.options.update(
-            {
-                "from_address": from_address,
-            }
-        )
-        self.context.update(
-            {
-                "platform_name": site.siteconfiguration.platform_name,
-            }
-        )
+        self.options.update({"from_address": from_address})
+        self.context.update({"platform_name": site.siteconfiguration.platform_name})

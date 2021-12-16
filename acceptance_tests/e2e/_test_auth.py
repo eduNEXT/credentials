@@ -1,10 +1,9 @@
 from unittest import skipUnless
 
-from bok_choy.web_app_test import WebAppTest
-
 from acceptance_tests.config import ENABLE_OAUTH2_TESTS
 from acceptance_tests.mixins import LoginMixin
 from acceptance_tests.pages import CredentialsDRFPage
+from bok_choy.web_app_test import WebAppTest
 
 
 @skipUnless(ENABLE_OAUTH2_TESTS, "OAuth2 tests are not enabled.")

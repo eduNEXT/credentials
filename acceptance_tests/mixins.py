@@ -1,6 +1,5 @@
 from django.conf import settings
 
-
 try:
     from acceptance_tests import auth
 except ImportError:

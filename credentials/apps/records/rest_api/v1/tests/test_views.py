@@ -1,7 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase
-from rest_framework.test import APIRequestFactory
-
 from credentials.apps.catalog.tests.factories import (
     CourseFactory,
     CourseRunFactory,
@@ -17,6 +13,9 @@ from credentials.apps.credentials.tests.factories import (
 )
 from credentials.apps.records.rest_api.v1.serializers import ProgramSerializer
 from credentials.apps.records.utils import get_user_program_data
+from django.contrib.contenttypes.models import ContentType
+from django.test import TestCase
+from rest_framework.test import APIRequestFactory
 
 
 class ProgramRecordsViewTests(SiteMixin, TestCase):
@@ -30,11 +29,7 @@ class ProgramRecordsViewTests(SiteMixin, TestCase):
             title="TestProgram1", course_runs=self.course_runs, authoring_organizations=self.orgs, site=self.site
         )
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
         self.program_cert = ProgramCertificateFactory.create(program_uuid=self.program.uuid, site=self.site)
         self.course_credential_content_type = ContentType.objects.get(

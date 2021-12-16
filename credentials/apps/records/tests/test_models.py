@@ -1,8 +1,4 @@
 """ Tests for records models """
-from django.core.exceptions import ValidationError
-from django.db.models.deletion import ProtectedError
-from django.test import TestCase
-
 from credentials.apps.catalog.tests.factories import CourseRunFactory, PathwayFactory, ProgramFactory
 from credentials.apps.records.tests.factories import (
     ProgramCertRecordFactory,
@@ -10,6 +6,9 @@ from credentials.apps.records.tests.factories import (
     UserGradeFactory,
 )
 from credentials.shared.constants import PathwayType
+from django.core.exceptions import ValidationError
+from django.db.models.deletion import ProtectedError
+from django.test import TestCase
 
 
 class UserGradeTests(TestCase):

@@ -14,7 +14,6 @@ from django.core.management.base import BaseCommand
 from django.db import connection, transaction
 from django.db.models import Max
 
-
 User = get_user_model()
 logger = logging.getLogger(__name__)
 
@@ -74,17 +73,10 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         parser.add_argument("--max-user-id", type=int, default=None, help="Maximum user id to update")
         parser.add_argument("--starting-user-id", type=int, default=0, help="First user id to update")
-        parser.add_argument(
-            "--batch-size",
-            type=int,
-            default=10000,
-            help="Number of users to update at a time",
-        )
+        parser.add_argument("--batch-size", type=int, default=10000, help="Number of users to update at a time")
         parser.add_argument("--s3-bucket-name", default=None, help="Name of AWS S3 bucket to pull data from")
         parser.add_argument(
-            "--file-name",
-            default=None,
-            help="Name of CSV file containing the data used to populate the temp table",
+            "--file-name", default=None, help="Name of CSV file containing the data used to populate the temp table"
         )
         parser.add_argument(
             "--stage",

@@ -3,11 +3,6 @@ import logging
 import textwrap
 from itertools import groupby
 
-from django.conf import settings
-from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q
-from edx_ace import Recipient, ace
-
 from credentials.apps.catalog.data import ProgramStatus
 from credentials.apps.core.models import User
 from credentials.apps.credentials.messages import ProgramCertificateIssuedMessage
@@ -16,7 +11,10 @@ from credentials.apps.credentials.models import (
     UserCredential,
     UserCredentialAttribute,
 )
-
+from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
+from edx_ace import Recipient, ace
 
 log = logging.getLogger(__name__)
 
@@ -146,8 +144,7 @@ def _get_program_certificate_visible_date(user_program_credential):
     for course_run in user_program_credential.credential.program.course_runs.all():
         # Does the user have a course cert for this course run?
         course_run_cert = UserCredential.objects.filter(
-            username=user_program_credential.username,
-            course_credentials__course_id=course_run.key,
+            username=user_program_credential.username, course_credentials__course_id=course_run.key
         ).first()
 
         if course_run_cert:

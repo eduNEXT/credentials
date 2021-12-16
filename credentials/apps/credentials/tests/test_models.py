@@ -5,13 +5,6 @@ from dataclasses import dataclass
 from unittest import mock
 
 import ddt
-from django.core.exceptions import ValidationError
-from django.core.files.images import ImageFile
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.template.defaultfilters import slugify
-from django.test import TestCase
-from opaque_keys.edx.locator import CourseLocator
-
 from credentials.apps.catalog.data import OrganizationDetails, ProgramDetails
 from credentials.apps.catalog.tests.factories import CourseRunFactory
 from credentials.apps.core.tests.mixins import SiteMixin
@@ -29,7 +22,12 @@ from credentials.apps.credentials.tests.factories import (
     UserCredentialFactory,
 )
 from credentials.settings.base import MEDIA_ROOT
-
+from django.core.exceptions import ValidationError
+from django.core.files.images import ImageFile
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.template.defaultfilters import slugify
+from django.test import TestCase
+from opaque_keys.edx.locator import CourseLocator
 
 TEST_DATA_ROOT = MEDIA_ROOT + "/test/data/"
 
@@ -124,10 +122,7 @@ class ProgramCertificateTests(SiteMixin, TestCase):
             site=self.site, use_org_name=use_org_name, title=credential_title
         )
         program_uuid = program_certificate.program_uuid.hex
-        courses = [
-            {"key": "ACMEx/101x"},
-            {"key": "FakeX/101x"},
-        ]
+        courses = [{"key": "ACMEx/101x"}, {"key": "FakeX/101x"}]
         expected = ProgramDetails(
             uuid=program_uuid,
             title="Test Program",

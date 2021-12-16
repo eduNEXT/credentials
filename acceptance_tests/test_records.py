@@ -1,9 +1,8 @@
 import unittest
 
-from bok_choy.web_app_test import WebAppTest
-
 from acceptance_tests.mixins import LoginMixin
 from acceptance_tests.pages import MyLearnerRecordsPage, ProgramListingPage
+from bok_choy.web_app_test import WebAppTest
 
 
 # Acceptance tests are heavy-weight, so we do only the bare minimum integration testing here.

@@ -3,12 +3,6 @@ from logging import WARNING
 from uuid import uuid4
 
 import ddt
-from django.test import TestCase
-from django.urls import reverse
-from rest_framework.exceptions import ValidationError
-from rest_framework.settings import api_settings
-from rest_framework.test import APIRequestFactory
-
 from credentials.apps.api.v2.serializers import (
     CourseCertificateSerializer,
     CredentialField,
@@ -27,6 +21,11 @@ from credentials.apps.credentials.tests.factories import (
     UserCredentialFactory,
 )
 from credentials.apps.records.tests.factories import UserGradeFactory
+from django.test import TestCase
+from django.urls import reverse
+from rest_framework.exceptions import ValidationError
+from rest_framework.settings import api_settings
+from rest_framework.test import APIRequestFactory
 
 
 @ddt.ddt
@@ -38,9 +37,7 @@ class CredentialFieldTests(SiteMixin, TestCase):
         self.field_instance = CredentialField()
         # see: https://github.com/encode/django-rest-framework/blob/3.9.x/rest_framework/fields.py#L610
         # pylint: disable=protected-access
-        self.field_instance._context = {
-            "request": namedtuple("HttpRequest", ["site"])(self.site),
-        }
+        self.field_instance._context = {"request": namedtuple("HttpRequest", ["site"])(self.site)}
 
     def assert_program_uuid_validation_error_raised(self, program_uuid):
         try:
@@ -62,24 +59,18 @@ class CredentialFieldTests(SiteMixin, TestCase):
         with self.assertRaisesMessage(ValidationError, "Credential identifier is missing"):
             self.field_instance.to_internal_value({"program_uuid": ""})
 
-    def test_to_internal_value_with_invalid_program_uuid(
-        self,
-    ):
+    def test_to_internal_value_with_invalid_program_uuid(self,):
         """Verify the method raises a ValidationError if the passed program UUID does not correspond to a
         ProgramCertificate.
         """
         self.assert_program_uuid_validation_error_raised(uuid4())
 
-    def test_to_internal_value_with_invalid_site(
-        self,
-    ):
+    def test_to_internal_value_with_invalid_site(self,):
         """Verify the method raises a ValidationError if the passed program UUID belongs to a different site."""
         certificate = ProgramCertificateFactory()  # without setting site=self.site
         self.assert_program_uuid_validation_error_raised(certificate.program_uuid)
 
-    def test_to_internal_value_with_inactive_program_certificate(
-        self,
-    ):
+    def test_to_internal_value_with_inactive_program_certificate(self,):
         """Verify the method raises a ValidationError if the ProgramCertificate is NOT active."""
         self.program_certificate.is_active = False
         self.program_certificate.save()
@@ -168,13 +159,7 @@ class UserGradeSerializerTests(SiteMixin, TestCase):
         Request = namedtuple("Request", ["site"])
         serializer = UserGradeSerializer(context={"request": Request(site=self.site)})
 
-        data = {
-            "username": "alice",
-            "course_run": "nope",
-            "letter_grade": "A",
-            "percent_grade": 0.9,
-            "verified": True,
-        }
+        data = {"username": "alice", "course_run": "nope", "letter_grade": "A", "percent_grade": 0.9, "verified": True}
 
         with self.assertRaisesMessage(ValidationError, "No CourseRun exists for key [nope]"):
             serializer.to_internal_value(data)

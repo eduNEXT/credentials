@@ -1,5 +1,6 @@
 from .data import OrganizationDetails, ProgramDetails
-from .models import CourseRun as _CourseRun, Program as _Program
+from .models import CourseRun as _CourseRun
+from .models import Program as _Program
 
 
 def get_program_details_by_uuid(uuid, site):
@@ -11,9 +12,7 @@ def get_program_details_by_uuid(uuid, site):
     return _convert_program_to_program_details(program)
 
 
-def _convert_program_to_program_details(
-    program,
-):
+def _convert_program_to_program_details(program,):
     """
     Converts a Program (model instance) into a ProgramDetails dataclass.
 
@@ -80,10 +79,7 @@ def get_filtered_programs(request_site, allowed_statuses, **course_filters):
     programs = (
         _Program.objects.filter(site=request_site, status__in=allowed_statuses, **course_filters)
         .distinct()
-        .prefetch_related(
-            "authoring_organizations",
-            "course_runs",
-        )
+        .prefetch_related("authoring_organizations", "course_runs")
         .order_by("title")
     )
     return programs

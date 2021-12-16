@@ -2,10 +2,8 @@
 import logging
 from urllib.parse import urljoin
 
-from django.db import transaction
-
 from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
-
+from django.db import transaction
 
 logger = logging.getLogger(__name__)
 
@@ -256,12 +254,7 @@ class CatalogDataSynchronizer:
             tuple(Course, list(CourseRun)): The Course that was created and a list of all child CourseRuns created
         """
         course, _ = Course.objects.update_or_create(
-            site=self.site,
-            uuid=data["uuid"],
-            defaults={
-                "key": data["key"],
-                "title": data["title"],
-            },
+            site=self.site, uuid=data["uuid"], defaults={"key": data["key"], "title": data["title"]}
         )
 
         self.add_item(self.COURSE, str(course.uuid))

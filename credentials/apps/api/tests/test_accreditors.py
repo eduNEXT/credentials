@@ -3,15 +3,13 @@ Tests for the accreditor module.
 """
 from unittest.mock import patch
 
-from django.test import TestCase
-from testfixtures import LogCapture
-
 from credentials.apps.api.accreditors import Accreditor
 from credentials.apps.api.exceptions import UnsupportedCredentialTypeError
 from credentials.apps.credentials.issuers import CourseCertificateIssuer, ProgramCertificateIssuer
 from credentials.apps.credentials.models import CourseCertificate, ProgramCertificate
 from credentials.apps.credentials.tests.factories import CourseCertificateFactory, ProgramCertificateFactory
-
+from django.test import TestCase
+from testfixtures import LogCapture
 
 LOGGER_NAME = "credentials.apps.api.accreditors"
 
@@ -56,10 +54,8 @@ class AccreditorTests(TestCase):
         Attempts to register additional issuers for a credential type should
         result in a warning being logged.
         """
-        msg = (
-            "The issuer [{0}] is already registered to issue credentials of type [{1}]. [{0}] will NOT be used.".format(
-                ProgramCertificateIssuer, self.program_credential
-            )
+        msg = "The issuer [{0}] is already registered to issue credentials of type [{1}]. [{0}] will NOT be used.".format(
+            ProgramCertificateIssuer, self.program_credential
         )
 
         with LogCapture(LOGGER_NAME) as lc:
@@ -72,8 +68,5 @@ class AccreditorTests(TestCase):
         """Verify the Accreditor supports multiple Issuers"""
         accreditor = Accreditor(issuers=[CourseCertificateIssuer(), ProgramCertificateIssuer()])
 
-        expected = {
-            self.course_credential: accreditor.issuers[0],
-            self.program_credential: accreditor.issuers[1],
-        }
+        expected = {self.course_credential: accreditor.issuers[0], self.program_credential: accreditor.issuers[1]}
         self.assertDictEqual(accreditor.credential_type_issuer_map, expected)

@@ -1,7 +1,6 @@
-from bok_choy.web_app_test import WebAppTest
-
 from acceptance_tests.mixins import LoginMixin
 from acceptance_tests.pages import CredentialsExamplePage
+from bok_choy.web_app_test import WebAppTest
 
 
 class CredentialViewTests(LoginMixin, WebAppTest):

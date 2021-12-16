@@ -3,11 +3,6 @@ Serializers for data manipulated by the credentials service APIs.
 """
 import logging
 
-from django.core.exceptions import ObjectDoesNotExist
-from rest_framework import serializers
-from rest_framework.exceptions import ValidationError
-from rest_framework.reverse import reverse
-
 from credentials.apps.api.accreditors import Accreditor
 from credentials.apps.catalog.models import CourseRun
 from credentials.apps.credentials.constants import UserCredentialStatus
@@ -19,7 +14,10 @@ from credentials.apps.credentials.models import (
     UserCredentialDateOverride,
 )
 from credentials.apps.records.models import UserGrade
-
+from django.core.exceptions import ObjectDoesNotExist
+from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
+from rest_framework.reverse import reverse
 
 logger = logging.getLogger(__name__)
 
@@ -62,10 +60,7 @@ class CredentialField(serializers.Field):
                     course_id=course_run_key,
                     course_run=course_run,
                     site=site,
-                    defaults={
-                        "is_active": True,
-                        "certificate_type": data.get("mode"),
-                    },
+                    defaults={"is_active": True, "certificate_type": data.get("mode")},
                 )
 
             if cert is None or not cert.is_active:
@@ -80,17 +75,9 @@ class CredentialField(serializers.Field):
     def to_representation(self, value):
         """Serialize objects to a according to model content-type."""
         if hasattr(value, "program_uuid"):
-            credential = {
-                "type": "program",
-                "credential_id": value.id,
-                "program_uuid": value.program_uuid,
-            }
+            credential = {"type": "program", "credential_id": value.id, "program_uuid": value.program_uuid}
         else:  # course run
-            credential = {
-                "type": "course-run",
-                "course_run_key": value.course_id,
-                "mode": value.certificate_type,
-            }
+            credential = {"type": "course-run", "course_run_key": value.course_id, "mode": value.certificate_type}
 
         return credential
 
@@ -100,13 +87,7 @@ class UserCertificateURLField(serializers.ReadOnlyField):  # pylint: disable=abs
 
     def to_representation(self, value):
         """Build the UserCredential URL for html view. Get the current domain from request."""
-        return reverse(
-            "credentials:render",
-            kwargs={
-                "uuid": value.hex,
-            },
-            request=self.context["request"],
-        )
+        return reverse("credentials:render", kwargs={"uuid": value.hex}, request=self.context["request"])
 
 
 class CourseRunField(serializers.Field):
@@ -164,13 +145,7 @@ class UserCredentialSerializer(serializers.ModelSerializer):
             "modified",
             "certificate_url",
         )
-        read_only_fields = (
-            "username",
-            "download_url",
-            "uuid",
-            "created",
-            "modified",
-        )
+        read_only_fields = ("username", "download_url", "uuid", "created", "modified")
 
 
 class UserCredentialCreationSerializer(serializers.ModelSerializer):
@@ -228,12 +203,7 @@ class UserCredentialCreationSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserCredential
         fields = UserCredentialSerializer.Meta.fields + ("lms_user_id",)
-        read_only_fields = (
-            "download_url",
-            "uuid",
-            "created",
-            "modified",
-        )
+        read_only_fields = ("download_url", "uuid", "created", "modified")
 
 
 class UserGradeSerializer(serializers.ModelSerializer):
@@ -243,21 +213,8 @@ class UserGradeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserGrade
-        fields = (
-            "id",
-            "username",
-            "course_run",
-            "letter_grade",
-            "percent_grade",
-            "verified",
-            "created",
-            "modified",
-        )
-        read_only_fields = (
-            "id",
-            "created",
-            "modified",
-        )
+        fields = ("id", "username", "course_run", "letter_grade", "percent_grade", "verified", "created", "modified")
+        read_only_fields = ("id", "created", "modified")
         # turn off validation, it only tries to complain about unique_together when updating existing objects
         validators = []
 
@@ -276,11 +233,7 @@ class UserGradeSerializer(serializers.ModelSerializer):
 
         # Support updating or creating when posting to a grade endpoint, since clients don't necessarily know the
         # resource ID to use and we don't need to make them care.
-        grade, _ = UserGrade.objects.update_or_create(
-            username=username,
-            course_run=course_run,
-            defaults=validated_data,
-        )
+        grade, _ = UserGrade.objects.update_or_create(username=username, course_run=course_run, defaults=validated_data)
         return grade
 
 

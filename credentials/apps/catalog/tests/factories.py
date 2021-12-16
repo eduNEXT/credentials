@@ -4,13 +4,13 @@ Factories for tests of Credentials.
 import datetime
 from uuid import uuid4
 
-import factory
-from factory.fuzzy import FuzzyDateTime, FuzzyInteger, FuzzyText
 from pytz import UTC
-from slugify import slugify
 
+import factory
 from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
 from credentials.apps.core.tests.factories import SiteFactory
+from factory.fuzzy import FuzzyDateTime, FuzzyInteger, FuzzyText
+from slugify import slugify
 
 
 def add_m2m_data(m2m_relation, data):

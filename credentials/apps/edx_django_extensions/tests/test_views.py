@@ -1,12 +1,11 @@
 from unittest import mock
 
 import django
+from credentials.apps.core.tests.factories import USER_PASSWORD, UserFactory
+from credentials.apps.core.tests.mixins import SiteMixin
 from django.contrib import messages
 from django.test import TestCase
 from django.urls import reverse
-
-from credentials.apps.core.tests.factories import USER_PASSWORD, UserFactory
-from credentials.apps.core.tests.mixins import SiteMixin
 
 
 class ManagementViewTests(SiteMixin, TestCase):

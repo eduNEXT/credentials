@@ -2,7 +2,6 @@ import logging
 
 from edx_ace import MessageType
 
-
 log = logging.getLogger(__name__)
 
 
@@ -21,19 +20,7 @@ class ProgramCertificateIssuedMessage(MessageType):
             log.info(f"No partner from address found. Using default no-reply@{site.domain}")
             from_address = "no-reply@" + site.domain
 
-        self.options.update(
-            {
-                "reply_to": [from_address],
-            }
-        )
+        self.options.update({"reply_to": [from_address]})
 
-        self.options.update(
-            {
-                "from_address": from_address,
-            }
-        )
-        self.context.update(
-            {
-                "platform_name": site.siteconfiguration.platform_name,
-            }
-        )
+        self.options.update({"from_address": from_address})
+        self.context.update({"platform_name": site.siteconfiguration.platform_name})

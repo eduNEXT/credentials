@@ -1,12 +1,11 @@
 """ Tests for catalog utilities. """
 from unittest.mock import MagicMock
 
-from django.test import TestCase
-
 from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
 from credentials.apps.catalog.utils import CatalogDataSynchronizer
 from credentials.apps.core.tests.factories import SiteFactory
 from credentials.shared.constants import PathwayType
+from django.test import TestCase
 
 
 class SynchronizerTests(TestCase):
@@ -78,18 +77,8 @@ class SynchronizerTests(TestCase):
 
     # Each item is a single resource (e.g. a program not a list of programs) because that's what the parse_method takes
     API_RESPONSES = [
-        {
-            "organizations": FIRST_ORG,
-            "courses": FIRST_COURSE,
-            "programs": FIRST_PROGRAM,
-            "pathways": FIRST_PATHWAY,
-        },
-        {
-            "organizations": FIRST_ORG,
-            "courses": UPDATED_COURSE,
-            "programs": UPDATED_PROGRAM,
-            "pathways": None,
-        },
+        {"organizations": FIRST_ORG, "courses": FIRST_COURSE, "programs": FIRST_PROGRAM, "pathways": FIRST_PATHWAY},
+        {"organizations": FIRST_ORG, "courses": UPDATED_COURSE, "programs": UPDATED_PROGRAM, "pathways": None},
     ]
 
     def setUp(self):

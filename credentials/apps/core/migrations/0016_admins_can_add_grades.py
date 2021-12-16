@@ -1,6 +1,5 @@
-from django.db import migrations
-
 from credentials.apps.core.constants import Role
+from django.db import migrations
 
 
 def add_perm(apps, schema_editor):

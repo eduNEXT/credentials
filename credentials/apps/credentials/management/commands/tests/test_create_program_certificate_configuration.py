@@ -5,10 +5,6 @@ Tests for the create_program_certificate_configuration command
 from unittest import TestCase, mock
 
 import pytest
-from django.contrib.sites.models import Site
-from django.core.management import call_command
-from django.core.management.base import CommandError
-
 from credentials.apps.catalog.models import Program
 from credentials.apps.catalog.tests.factories import (
     CourseFactory,
@@ -17,7 +13,9 @@ from credentials.apps.catalog.tests.factories import (
     ProgramFactory,
 )
 from credentials.apps.credentials.models import ProgramCertificate
-
+from django.contrib.sites.models import Site
+from django.core.management import call_command
+from django.core.management.base import CommandError
 
 COMMAND = "create_program_certificate_configuration"
 

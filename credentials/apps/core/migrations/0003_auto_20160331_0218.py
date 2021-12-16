@@ -1,9 +1,8 @@
+from credentials.apps.core.constants import Role
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import migrations
-
-from credentials.apps.core.constants import Role
 
 
 def create_view_permission(apps, schema_editor):

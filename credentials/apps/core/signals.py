@@ -1,7 +1,6 @@
+from credentials.apps.core.models import SiteConfiguration
 from django.contrib.sites.models import Site
 from django.db.models.signals import pre_delete, pre_save
-
-from credentials.apps.core.models import SiteConfiguration
 
 
 def clear_site_cache(sender, **kwargs):  # pylint: disable=unused-argument

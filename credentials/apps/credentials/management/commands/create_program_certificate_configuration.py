@@ -1,12 +1,10 @@
 """ Management command to create a program certificate configuration for the demo program """
 import logging
 
-from django.contrib.sites.models import Site
-from django.core.management.base import BaseCommand, CommandError
-
 from credentials.apps.catalog.models import Program
 from credentials.apps.credentials.models import ProgramCertificate
-
+from django.contrib.sites.models import Site
+from django.core.management.base import BaseCommand, CommandError
 
 logger = logging.getLogger(__name__)
 

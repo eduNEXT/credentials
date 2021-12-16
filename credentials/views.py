@@ -26,14 +26,8 @@ class MockToggleStateView(views.APIView):  # pragma: no cover
     integrated.
     """
 
-    authentication_classes = (
-        JwtAuthentication,
-        SessionAuthentication,
-    )
-    permission_classes = (
-        permissions.IsAuthenticated,
-        IsStaff,
-    )
+    authentication_classes = (JwtAuthentication, SessionAuthentication)
+    permission_classes = (permissions.IsAuthenticated, IsStaff)
 
     def get(self, request):
         return Response(

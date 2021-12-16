@@ -7,6 +7,16 @@ import urllib.parse
 from collections import defaultdict
 
 from analytics.client import Client as SegmentClient
+from credentials.apps.catalog.models import Pathway, Program
+from credentials.apps.core.models import User
+from credentials.apps.core.views import ThemeViewMixin
+from credentials.apps.credentials.models import ProgramCertificate, UserCredential
+from credentials.apps.credentials.utils import filter_visible, get_credential_visible_date, get_credential_visible_dates
+from credentials.apps.records.constants import UserCreditPathwayStatus
+from credentials.apps.records.messages import ProgramCreditRequest
+from credentials.apps.records.models import ProgramCertRecord, UserCreditPathway, UserGrade
+from credentials.apps.records.utils import get_user_program_data
+from credentials.shared.constants import PathwayType
 from django import http
 from django.conf import settings
 from django.contrib.auth.mixins import AccessMixin, LoginRequiredMixin
@@ -21,19 +31,7 @@ from django.views.generic import TemplateView, View
 from edx_ace import Recipient, ace
 from ratelimit.decorators import ratelimit
 
-from credentials.apps.catalog.models import Pathway, Program
-from credentials.apps.core.models import User
-from credentials.apps.core.views import ThemeViewMixin
-from credentials.apps.credentials.models import ProgramCertificate, UserCredential
-from credentials.apps.credentials.utils import filter_visible, get_credential_visible_date, get_credential_visible_dates
-from credentials.apps.records.constants import UserCreditPathwayStatus
-from credentials.apps.records.messages import ProgramCreditRequest
-from credentials.apps.records.models import ProgramCertRecord, UserCreditPathway, UserGrade
-from credentials.apps.records.utils import get_user_program_data
-from credentials.shared.constants import PathwayType
-
 from .constants import RECORDS_RATE_LIMIT
-
 
 log = logging.getLogger(__name__)
 
@@ -90,8 +88,7 @@ def get_record_data(user, program_uuid, site, platform_name=None):
     course_certificate_content_type = ContentType.objects.get(app_label="credentials", model="coursecertificate")
     course_user_credentials = filter_visible(
         UserCredential.objects.prefetch_related("credential").filter(
-            username=user.username,
-            credential_content_type=course_certificate_content_type,
+            username=user.username, credential_content_type=course_certificate_content_type
         )
     )
 
@@ -132,11 +129,7 @@ def get_record_data(user, program_uuid, site, platform_name=None):
 
     last_updated = last_updated or datetime.datetime.today()
 
-    learner_data = {
-        "full_name": user.get_full_name(),
-        "username": user.username,
-        "email": user.email,
-    }
+    learner_data = {"full_name": user.get_full_name(), "username": user.username, "email": user.email}
 
     program_data = {
         "name": program.title,
@@ -237,10 +230,7 @@ class RecordsListBaseView(LoginRequiredMixin, RecordsEnabledMixin, TemplateView,
 class RecordsView(RecordsListBaseView):
     def _get_programs(self):
         return get_user_program_data(
-            self.request.user.username,
-            self.request.site,
-            include_empty_programs=False,
-            include_retired_programs=True,
+            self.request.user.username, self.request.site, include_empty_programs=False, include_retired_programs=True
         )
 
     def get_context_data(self, **kwargs):
@@ -267,10 +257,7 @@ class RecordsView(RecordsListBaseView):
 class ProgramListingView(RecordsListBaseView):
     def _get_programs(self):
         return get_user_program_data(
-            self.request.user.username,
-            self.request.site,
-            include_empty_programs=True,
-            include_retired_programs=False,
+            self.request.user.username, self.request.site, include_empty_programs=True, include_retired_programs=False
         )
 
     def get_context_data(self, **kwargs):
@@ -374,10 +361,7 @@ class ProgramSendView(LoginRequiredMixin, RecordsEnabledMixin, View):
         )
         program = get_object_or_404(Program, uuid=program_uuid, site=request.site)
         pathway = get_object_or_404(
-            Pathway,
-            id=pathway_id,
-            programs__uuid=program_uuid,
-            pathway_type=PathwayType.CREDIT.value,
+            Pathway, id=pathway_id, programs__uuid=program_uuid, pathway_type=PathwayType.CREDIT.value
         )
         certificate = get_object_or_404(ProgramCertificate, program_uuid=program_uuid, site=request.site)
         user = get_object_or_404(User, username=username)
@@ -409,9 +393,7 @@ class ProgramSendView(LoginRequiredMixin, RecordsEnabledMixin, View):
         # Create a record of this email so that we can't send multiple times
         # If the status was previously changed, we want to reset it to SENT
         UserCreditPathway.objects.update_or_create(
-            user=user,
-            pathway=pathway,
-            defaults={"status": UserCreditPathwayStatus.SENT},
+            user=user, pathway=pathway, defaults={"status": UserCreditPathwayStatus.SENT}
         )
 
         return http.HttpResponse(status=200)

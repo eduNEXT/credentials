@@ -1,12 +1,5 @@
 import urllib
 
-from django.contrib.contenttypes.models import ContentType
-from django.core import mail
-from django.test import TestCase
-from django.test.utils import override_settings
-from django.urls import reverse
-from rest_framework.test import APIRequestFactory
-
 from credentials.apps.catalog.data import ProgramStatus
 from credentials.apps.catalog.tests.factories import (
     CourseFactory,
@@ -33,6 +26,12 @@ from credentials.apps.records.utils import (
     masquerading_authorized,
     send_updated_emails_for_program,
 )
+from django.contrib.contenttypes.models import ContentType
+from django.core import mail
+from django.test import TestCase
+from django.test.utils import override_settings
+from django.urls import reverse
+from rest_framework.test import APIRequestFactory
 
 
 @override_settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
@@ -152,11 +151,7 @@ class CourseCredentialsToCourseRunsTests(SiteMixin, TestCase):
             title="TestProgram1", course_runs=self.course_runs, authoring_organizations=self.orgs, site=self.site
         )
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
         self.program_cert = ProgramCertificateFactory.create(program_uuid=self.program.uuid, site=self.site)
         self.course_credential_content_type = ContentType.objects.get(
@@ -191,10 +186,7 @@ class CourseCredentialsToCourseRunsTests(SiteMixin, TestCase):
     def test_course_credentials_to_course_runs_one_awarded(self):
         self.course_runs2 = CourseRunFactory.create_batch(1, course=self.course)
         self.course_certs2 = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site)
             for course_run in self.course_runs2
         ]
         self.course_user_credentials2 = [
@@ -211,10 +203,7 @@ class CourseCredentialsToCourseRunsTests(SiteMixin, TestCase):
     def test_course_credentials_to_course_runs_one_revoked(self):
         self.course_runs2 = CourseRunFactory.create_batch(1, course=self.course)
         self.course_certs2 = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site)
             for course_run in self.course_runs2
         ]
         self.course_user_credentials2 = [
@@ -247,11 +236,7 @@ class GetCredentialsTests(SiteMixin, TestCase):
             title="TestProgram1", course_runs=self.course_runs, authoring_organizations=self.orgs, site=self.site
         )
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
         self.program_cert = ProgramCertificateFactory.create(program_uuid=self.program.uuid, site=self.site)
         self.course_credential_content_type = ContentType.objects.get(
@@ -314,11 +299,7 @@ class GetProgramDataTests(SiteMixin, TestCase):
             title="TestProgram1", course_runs=self.course_runs, authoring_organizations=self.orgs, site=self.site
         )
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
         self.program_cert = ProgramCertificateFactory.create(program_uuid=self.program.uuid, site=self.site)
         self.course_credential_content_type = ContentType.objects.get(

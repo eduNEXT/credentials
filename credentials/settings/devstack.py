@@ -52,8 +52,7 @@ SOCIAL_AUTH_EDX_OAUTH2_ISSUER = os.environ.get("SOCIAL_AUTH_EDX_OAUTH2_ISSUER", 
 SOCIAL_AUTH_EDX_OAUTH2_URL_ROOT = os.environ.get("SOCIAL_AUTH_EDX_OAUTH2_URL_ROOT", "http://edx.devstack.lms:18000")
 SOCIAL_AUTH_EDX_OAUTH2_LOGOUT_URL = os.environ.get("SOCIAL_AUTH_EDX_OAUTH2_LOGOUT_URL", "http://localhost:18000/logout")
 SOCIAL_AUTH_EDX_OAUTH2_PUBLIC_URL_ROOT = os.environ.get(
-    "SOCIAL_AUTH_EDX_OAUTH2_PUBLIC_URL_ROOT",
-    "http://localhost:18000",
+    "SOCIAL_AUTH_EDX_OAUTH2_PUBLIC_URL_ROOT", "http://localhost:18000"
 )
 
 # OAuth2 variables specific to backend service API calls.
@@ -62,8 +61,7 @@ BACKEND_SERVICE_EDX_OAUTH2_SECRET = os.environ.get(
     "BACKEND_SERVICE_EDX_OAUTH2_SECRET", "credentials-backend-service-secret"
 )
 BACKEND_SERVICE_EDX_OAUTH2_PROVIDER_URL = os.environ.get(
-    "BACKEND_SERVICE_EDX_OAUTH2_PROVIDER_URL",
-    "http://edx.devstack.lms:18000/oauth2",
+    "BACKEND_SERVICE_EDX_OAUTH2_PROVIDER_URL", "http://edx.devstack.lms:18000/oauth2"
 )
 
 CORS_ORIGIN_WHITELIST = ("http://localhost:1990",)
@@ -82,13 +80,7 @@ JWT_AUTH.update(
             "4Ee9qG5T38LFe8_oAuFCEntimWxN9F3P-FJQy43TL7wG54WodgiM0EgzkeLr5K6cDnyckWjTuZbWI-4ffcTgTZsL_Kq1owa_J2ngEfxMCObnzG"
             'y5ZLcTUomo4rZLjghVpq6KZxfS6I1Vz79ZsMVUWEdXOYePCKKsrQG20ogQEkmTf9FT_SouC6jPcHLXw"}]}'
         ),
-        "JWT_ISSUERS": [
-            {
-                "AUDIENCE": "lms-key",
-                "ISSUER": "http://localhost:18000/oauth2",
-                "SECRET_KEY": "lms-secret",
-            }
-        ],
+        "JWT_ISSUERS": [{"AUDIENCE": "lms-key", "ISSUER": "http://localhost:18000/oauth2", "SECRET_KEY": "lms-secret"}],
     }
 )
 

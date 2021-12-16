@@ -56,7 +56,7 @@ def get_logger_config(
         "disable_existing_loggers": False,
         "formatters": {
             "standard": {
-                "format": "%(asctime)s %(levelname)s %(process)d " "[%(name)s] %(filename)s:%(lineno)d - %(message)s",
+                "format": "%(asctime)s %(levelname)s %(process)d " "[%(name)s] %(filename)s:%(lineno)d - %(message)s"
             },
             "syslog_format": {"format": syslog_format},
             "raw": {"format": "%(message)s"},
@@ -67,7 +67,7 @@ def get_logger_config(
                 "class": "logging.StreamHandler",
                 "formatter": "standard",
                 "stream": sys.stdout,
-            },
+            }
         },
         "loggers": {
             "django": {"handlers": handlers, "propagate": True, "level": "INFO"},
@@ -89,7 +89,7 @@ def get_logger_config(
                     "filename": edx_file_loc,
                     "maxBytes": 1024 * 1024 * 2,
                     "backupCount": 5,
-                },
+                }
             }
         )
     else:
@@ -102,7 +102,7 @@ def get_logger_config(
                     "address": "/var/run/syslog" if sys.platform == "darwin" else "/dev/log",
                     "formatter": "syslog_format",
                     "facility": SysLogHandler.LOG_LOCAL0,
-                },
+                }
             }
         )
 

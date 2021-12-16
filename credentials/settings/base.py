@@ -3,11 +3,9 @@ from datetime import timezone
 from os.path import abspath, dirname, join
 
 from corsheaders.defaults import default_headers as corsheaders_default_headers
+from credentials.settings.utils import get_logger_config
 from django.conf.global_settings import LANGUAGES_BIDI
 from edx_toggles.toggles import WaffleSwitch
-
-from credentials.settings.utils import get_logger_config
-
 
 # PATH vars
 
@@ -289,7 +287,7 @@ TEMPLATES = [
             ),
             "debug": True,  # Django will only display debug pages if the global DEBUG setting is set to True.
         },
-    },
+    }
 ]
 CERTIFICATE_LANGUAGES = {}
 # END TEMPLATE CONFIGURATION
@@ -310,10 +308,7 @@ LOGOUT_URL = "/logout/"
 
 AUTH_USER_MODEL = "core.User"
 
-AUTHENTICATION_BACKENDS = (
-    "auth_backends.backends.EdXOAuth2",
-    "django.contrib.auth.backends.ModelBackend",
-)
+AUTHENTICATION_BACKENDS = ("auth_backends.backends.EdXOAuth2", "django.contrib.auth.backends.ModelBackend")
 
 ENABLE_AUTO_AUTH = False
 AUTO_AUTH_USERNAME_PREFIX = "auto_auth_"
@@ -413,10 +408,7 @@ RATELIMIT_VIEW = "credentials.apps.records.views.rate_limited"
 
 # django-hijack settings
 HIJACK_AUTHORIZE_STAFF = True
-HIJACK_URL_ALLOWED_ATTRIBUTES = (
-    "email",
-    "username",
-)
+HIJACK_URL_ALLOWED_ATTRIBUTES = ("email", "username")
 # Since we force reload pages when masquerading/hijacking, users don't
 # actually hit this page.  The admin endpoint just acts as a safe
 # follow through for all users to hit in the django-hijack redirect.
@@ -426,9 +418,7 @@ HIJACK_AUTHORIZATION_CHECK = "credentials.apps.records.utils.masquerading_author
 # DJANGO DEBUG TOOLBAR CONFIGURATION
 # http://django-debug-toolbar.readthedocs.org/en/latest/installation.html
 if os.environ.get("ENABLE_DJANGO_TOOLBAR", False):
-    INSTALLED_APPS += [
-        "debug_toolbar",
-    ]
+    INSTALLED_APPS += ["debug_toolbar"]
 
     MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
@@ -458,11 +448,7 @@ FILE_STORAGE_BACKEND = {}
 EXTRA_APPS = []
 SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 STATICFILES_STORAGE = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
-CACHES = {
-    "default": {
-        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-    }
-}
+CACHES = {"default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"}}
 EDX_DRF_EXTENSIONS = {
     "JWT_PAYLOAD_USER_ATTRIBUTE_MAPPING": {
         "administrator": "is_staff",

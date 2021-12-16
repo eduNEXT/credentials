@@ -1,15 +1,5 @@
 import logging
 
-from django.apps import apps
-from django.db import transaction
-from django.db.models import Q
-from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
-from rest_framework import mixins, permissions, status, viewsets
-from rest_framework.exceptions import Throttled
-from rest_framework.response import Response
-from rest_framework.throttling import ScopedRateThrottle
-from rest_framework.views import APIView, exception_handler
-
 from credentials.apps.api.v2.filters import UserCredentialFilter
 from credentials.apps.api.v2.permissions import CanReplaceUsername, UserCredentialPermissions
 from credentials.apps.api.v2.serializers import (
@@ -20,7 +10,15 @@ from credentials.apps.api.v2.serializers import (
 )
 from credentials.apps.credentials.models import CourseCertificate, UserCredential
 from credentials.apps.records.models import UserGrade
-
+from django.apps import apps
+from django.db import transaction
+from django.db.models import Q
+from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
+from rest_framework import mixins, permissions, status, viewsets
+from rest_framework.exceptions import Throttled
+from rest_framework.response import Response
+from rest_framework.throttling import ScopedRateThrottle
+from rest_framework.views import APIView, exception_handler
 
 log = logging.getLogger(__name__)
 
@@ -44,11 +42,7 @@ def credentials_throttle_handler(exc, context):
 class CredentialRateThrottle(ScopedRateThrottle):
     """Rate limits requests to the credentials endpoints."""
 
-    THROTTLE_RATES = {
-        "credential_view": "15/minute",
-        "grade_view": "90/minute",
-        "staff_override": "1500/minute",
-    }
+    THROTTLE_RATES = {"credential_view": "15/minute", "grade_view": "90/minute", "staff_override": "1500/minute"}
 
     def allow_request(self, request, view):
         user = request.user
@@ -274,11 +268,7 @@ class UsernameReplacementView(APIView):
                 current_username,
             )
         else:
-            log.info(
-                "Successfully changed username from %s to %s.",
-                current_username,
-                new_username,
-            )
+            log.info("Successfully changed username from %s to %s.", current_username, new_username)
         return True
 
 

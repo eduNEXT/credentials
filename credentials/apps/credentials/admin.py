@@ -1,6 +1,3 @@
-from django.contrib import admin
-from django.db.models import Q
-
 from credentials.apps.credentials.forms import ProgramCertificateAdminForm, SignatoryModelForm
 from credentials.apps.credentials.models import (
     CourseCertificate,
@@ -11,13 +8,12 @@ from credentials.apps.credentials.models import (
     UserCredentialAttribute,
     UserCredentialDateOverride,
 )
+from django.contrib import admin
+from django.db.models import Q
 
 
 class TimeStampedModelAdminMixin:
-    readonly_fields = (
-        "created",
-        "modified",
-    )
+    readonly_fields = ("created", "modified")
 
 
 class UserCredentialAttributeInline(admin.TabularInline):
@@ -89,10 +85,7 @@ class CourseCertificateAdmin(TimeStampedModelAdminMixin, admin.ModelAdmin):
 class ProgramCertificateAdmin(TimeStampedModelAdminMixin, admin.ModelAdmin):
     form = ProgramCertificateAdminForm
     list_display = ("program_uuid", "site", "is_active", "program")
-    list_filter = (
-        "is_active",
-        "site",
-    )
+    list_filter = ("is_active", "site")
     autocomplete_fields = ("program",)
     search_fields = ("program_uuid", "program__title")
 

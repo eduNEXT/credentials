@@ -1,10 +1,8 @@
 """ Context processor tests. """
-from django.conf import settings
-from django.test import RequestFactory, TestCase
-
 from credentials.apps.core.context_processors import core
 from credentials.apps.core.tests import factories
-
+from django.conf import settings
+from django.test import RequestFactory, TestCase
 
 LANGUAGE_CODE = "en"
 

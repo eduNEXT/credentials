@@ -26,8 +26,8 @@ from django.contrib import admin
 from django.urls import re_path
 from django.utils.translation import gettext_lazy as _
 from django.views.defaults import page_not_found
-from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from drf_yasg.views import get_schema_view
 from rest_framework import permissions
 
 admin.autodiscover()
@@ -35,20 +35,16 @@ admin.site.site_header = _("Credentials Administration")
 admin.site.site_title = admin.site.site_header
 
 schema_view = get_schema_view(
-   openapi.Info(
-      title="Credentials API",
-      default_version='v1',
-      description="Credentials API docs",
-   ),
-   public=False,
-   permission_classes=[permissions.AllowAny],
+    openapi.Info(title="Credentials API", default_version="v1", description="Credentials API docs"),
+    public=False,
+    permission_classes=[permissions.AllowAny],
 )
 
 urlpatterns = oauth2_urlpatterns + [
     re_path(r"^admin/", admin.site.urls),
     re_path(r"^api/", include(("credentials.apps.api.urls", "api"), namespace="api")),
     re_path(r"^api-auth/", include((oauth2_urlpatterns, "rest_framework"), namespace="rest_framework")),
-    re_path(r"^api-docs/$", schema_view.with_ui('swagger', cache_timeout=0), name="api_docs"),
+    re_path(r"^api-docs/$", schema_view.with_ui("swagger", cache_timeout=0), name="api_docs"),
     re_path(r"^auto_auth/$", core_views.AutoAuth.as_view(), name="auto_auth"),
     re_path(r"^credentials/", include(("credentials.apps.credentials.urls", "credentials"), namespace="credentials")),
     re_path(r"^health/$", core_views.health, name="health"),

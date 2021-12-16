@@ -2,10 +2,9 @@
 
 from unittest import mock
 
-from django.test import TestCase
-
 from credentials.apps.core.tests.factories import UserFactory
 from credentials.apps.core.utils import update_full_name
+from django.test import TestCase
 
 
 class UtilsTests(TestCase):

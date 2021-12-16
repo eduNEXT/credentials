@@ -3,15 +3,14 @@ Tests for REST API Authentication
 """
 
 import ddt
-from django.contrib.auth.models import Group
-from django.test import TestCase
-from rest_framework.exceptions import AuthenticationFailed
-from rest_framework.test import APIRequestFactory
-
 from credentials.apps.api.authentication import JwtAuthentication, pipeline_set_user_roles
 from credentials.apps.api.tests.mixins import JwtMixin
 from credentials.apps.core.constants import Role
 from credentials.apps.core.tests.factories import UserFactory
+from django.contrib.auth.models import Group
+from django.test import TestCase
+from rest_framework.exceptions import AuthenticationFailed
+from rest_framework.test import APIRequestFactory
 
 
 @ddt.ddt

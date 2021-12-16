@@ -1,10 +1,8 @@
+from credentials.apps.credentials.constants import UUID_PATTERN
 from django.conf.urls import include
 from django.urls import re_path
 
-from credentials.apps.credentials.constants import UUID_PATTERN
-
 from . import views
-
 
 urlpatterns = [
     re_path(r"^$", views.RecordsView.as_view(), name="index"),

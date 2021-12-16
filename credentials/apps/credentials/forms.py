@@ -3,12 +3,11 @@ Django forms for the credentials
 """
 from operator import itemgetter
 
+from credentials.apps.catalog.api import get_program_details_by_uuid
+from credentials.apps.credentials.models import ProgramCertificate, Signatory
 from django import forms
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
-
-from credentials.apps.catalog.api import get_program_details_by_uuid
-from credentials.apps.credentials.models import ProgramCertificate, Signatory
 
 
 class SignatoryModelForm(forms.ModelForm):

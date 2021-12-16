@@ -3,12 +3,11 @@ from unittest import mock
 
 import factory
 import faker
-from django.test import TestCase
-
 from credentials.apps.catalog.data import OrganizationDetails, ProgramDetails
 from credentials.apps.core.tests.factories import SiteConfigurationFactory
 from credentials.apps.credentials.forms import ProgramCertificateAdminForm
 from credentials.apps.credentials.tests.factories import ProgramCertificateFactory
+from django.test import TestCase
 
 
 class ProgramCertificateAdminFormTests(TestCase):

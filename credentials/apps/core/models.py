@@ -56,27 +56,10 @@ class SiteConfiguration(models.Model):
         blank=False,
         null=False,
     )
-    tos_url = models.URLField(
-        verbose_name=_("Terms of Service URL"),
-        blank=False,
-        null=True,
-    )
-    privacy_policy_url = models.URLField(
-        verbose_name=_("Privacy Policy URL"),
-        blank=False,
-        null=True,
-    )
-    homepage_url = models.URLField(
-        verbose_name=_("Homepage URL"),
-        blank=False,
-        null=True,
-    )
-    company_name = models.CharField(
-        verbose_name=_("Company Name"),
-        max_length=255,
-        blank=False,
-        null=True,
-    )
+    tos_url = models.URLField(verbose_name=_("Terms of Service URL"), blank=False, null=True)
+    privacy_policy_url = models.URLField(verbose_name=_("Privacy Policy URL"), blank=False, null=True)
+    homepage_url = models.URLField(verbose_name=_("Homepage URL"), blank=False, null=True)
+    company_name = models.CharField(verbose_name=_("Company Name"), max_length=255, blank=False, null=True)
     verified_certificate_url = models.URLField(
         verbose_name=_("Verified Certificate URL"),
         help_text="This field is deprecated, and will be removed.",

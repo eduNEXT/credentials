@@ -3,12 +3,11 @@ import json
 from unittest import mock
 
 import responses
+from credentials.apps.core.tests.factories import SiteConfigurationFactory, SiteFactory, UserFactory
+from credentials.apps.core.tests.mixins import JSON, SiteMixin
 from django.contrib.sites.models import SiteManager
 from django.test import TestCase, override_settings
 from faker import Faker
-
-from credentials.apps.core.tests.factories import SiteConfigurationFactory, SiteFactory, UserFactory
-from credentials.apps.core.tests.mixins import JSON, SiteMixin
 
 
 class UserTests(TestCase):
@@ -71,9 +70,7 @@ class SiteConfigurationTests(SiteMixin, TestCase):
     def test_get_user_api_data_with_cache(self):
         """Verify the method retrieves data from the User API and caches it."""
         username = Faker().user_name()
-        user_data = {
-            "username": username,
-        }
+        user_data = {"username": username}
         user_url = f"{self.site_configuration.user_api_url}accounts/{username}"
         responses.add(responses.GET, user_url, body=json.dumps(user_data), content_type=JSON, status=200)
 
@@ -110,9 +107,7 @@ class SiteConfigurationTests(SiteMixin, TestCase):
     def test_get_user_api_data_with_404(self):
         """Verify the method does not throw exception when non 200 status is returned by verified name API"""
         username = Faker().user_name()
-        user_data = {
-            "username": username,
-        }
+        user_data = {"username": username}
         user_url = f"{self.site_configuration.user_api_url}accounts/{username}"
         responses.add(responses.GET, user_url, body=json.dumps(user_data), content_type=JSON, status=200)
 

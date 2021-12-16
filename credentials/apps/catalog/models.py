@@ -1,15 +1,13 @@
 """Models governing integration with the catalog service."""
 import logging
 
+from credentials.shared.constants import PathwayType
 from django.contrib.sites.models import Site
 from django.db import models
 from django_extensions.db.models import TimeStampedModel
 from sortedm2m.fields import SortedManyToManyField
 
-from credentials.shared.constants import PathwayType
-
 from .data import ProgramStatus
-
 
 logger = logging.getLogger(__name__)
 
@@ -131,9 +129,7 @@ class Pathway(TimeStampedModel):
     """
 
     pathway_type = models.CharField(
-        max_length=32,
-        choices=[(tag.value, tag.value) for tag in PathwayType],
-        default=PathwayType.CREDIT.value,
+        max_length=32, choices=[(tag.value, tag.value) for tag in PathwayType], default=PathwayType.CREDIT.value
     )
     site = models.ForeignKey(Site, on_delete=models.CASCADE)
     uuid = models.UUIDField(verbose_name="UUID")

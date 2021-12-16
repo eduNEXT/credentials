@@ -5,10 +5,8 @@ Authentication logic for REST API.
 import logging
 
 import edx_rest_framework_extensions.auth.jwt.authentication as edx_drf_auth
-from django.contrib.auth.models import Group
-
 from credentials.apps.core.constants import Role
-
+from django.contrib.auth.models import Group
 
 logger = logging.getLogger(__name__)
 

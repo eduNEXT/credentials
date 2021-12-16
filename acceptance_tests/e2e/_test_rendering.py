@@ -1,10 +1,9 @@
+from acceptance_tests.mixins import CredentialsApiMixin, LoginMixin
+from acceptance_tests.pages import LMSDashboardPage, LMSProgramListingPage
 from bok_choy.web_app_test import WebAppTest
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
-from acceptance_tests.mixins import CredentialsApiMixin, LoginMixin
-from acceptance_tests.pages import LMSDashboardPage, LMSProgramListingPage
 
 
 class RenderCredentialTests(LoginMixin, WebAppTest, CredentialsApiMixin):

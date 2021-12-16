@@ -1,9 +1,8 @@
+from credentials.apps.core.constants import Role
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth.management import create_permissions
 from django.db import migrations
-
-from credentials.apps.core.constants import Role
 
 
 def create_groups(apps, schema_editor):

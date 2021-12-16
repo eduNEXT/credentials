@@ -3,16 +3,15 @@ Models for the records app.
 """
 import uuid
 
-from django.core.exceptions import ValidationError
-from django.db import models
-from django.utils.translation import gettext_lazy as _
-from django_extensions.db.models import TimeStampedModel
-
 from credentials.apps.catalog.models import CourseRun, Pathway, Program
 from credentials.apps.core.models import User
 from credentials.apps.credentials.models import ProgramCertificate
 from credentials.apps.records import constants
 from credentials.shared.constants import PathwayType
+from django.core.exceptions import ValidationError
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from django_extensions.db.models import TimeStampedModel
 
 
 class UserGrade(TimeStampedModel):
@@ -70,18 +69,12 @@ class UserCreditPathway(TimeStampedModel):
     .. no_pii: This model has no PII.
     """
 
-    STATUS_CHOICES = [
-        (constants.UserCreditPathwayStatus.SENT, _("sent")),
-        ("", _("other")),
-    ]
+    STATUS_CHOICES = [(constants.UserCreditPathwayStatus.SENT, _("sent")), ("", _("other"))]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     pathway = models.ForeignKey(Pathway, on_delete=models.PROTECT)
     status = models.CharField(
-        max_length=15,
-        choices=STATUS_CHOICES,
-        default=constants.UserCreditPathwayStatus.SENT,
-        blank=True,
+        max_length=15, choices=STATUS_CHOICES, default=constants.UserCreditPathwayStatus.SENT, blank=True
     )
 
     def clean(self):

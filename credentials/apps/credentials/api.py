@@ -1,10 +1,8 @@
 from credentials.apps.credentials.utils import filter_visible
 
-from .models import (
-    CourseCertificate as _CourseCertificate,
-    ProgramCertificate as _ProgramCertificate,
-    UserCredential as _UserCredential,
-)
+from .models import CourseCertificate as _CourseCertificate
+from .models import ProgramCertificate as _ProgramCertificate
+from .models import UserCredential as _UserCredential
 
 
 def get_course_certificates_with_ids(course_credential_ids, request_site):
@@ -49,9 +47,7 @@ def get_user_credentials_by_content_type(request_username, course_cert_content_t
     """
     user_credentials = filter_visible(
         _UserCredential.objects.filter(
-            username=request_username,
-            status=status,
-            credential_content_type__in=course_cert_content_types,
+            username=request_username, status=status, credential_content_type__in=course_cert_content_types
         )
     )
 

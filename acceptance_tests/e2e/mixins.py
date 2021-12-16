@@ -1,10 +1,8 @@
 import logging
 
-from edx_rest_api_client.client import EdxRestApiClient
-
 from acceptance_tests import config
 from acceptance_tests.pages import LMSLoginPage
-
+from edx_rest_api_client.client import EdxRestApiClient
 
 log = logging.getLogger(__name__)
 

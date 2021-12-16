@@ -1,12 +1,6 @@
 import logging
 from datetime import datetime
 
-from django.contrib.contenttypes.models import ContentType
-from django.contrib.sites.models import Site
-from django.core.management import BaseCommand
-from django.db import transaction
-from faker import Faker
-
 from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
 from credentials.apps.core.models import User
 from credentials.apps.credentials.constants import CertificateType
@@ -15,7 +9,11 @@ from credentials.apps.records.constants import UserCreditPathwayStatus
 from credentials.apps.records.models import ProgramCertRecord, UserCreditPathway, UserGrade
 from credentials.settings.base import TIME_ZONE_CLASS
 from credentials.shared.constants import PathwayType
-
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
+from django.core.management import BaseCommand
+from django.db import transaction
+from faker import Faker
 
 logger = logging.getLogger(__name__)
 
@@ -161,12 +159,7 @@ class Command(BaseCommand):
             course_runs = [CourseRun.objects.get(course=course) for course in courses]
 
             program, created = Program.objects.update_or_create(
-                site=site,
-                uuid=faker.uuid4(),
-                defaults={
-                    "title": f"Program {program_id}",
-                    "status": "active",
-                },
+                site=site, uuid=faker.uuid4(), defaults={"title": f"Program {program_id}", "status": "active"}
             )
             program.course_runs.set(course_runs)
             program.authoring_organizations.set([organization])
@@ -219,12 +212,7 @@ class Command(BaseCommand):
 
         for program in programs:
             program_certificate, created = ProgramCertificate.objects.update_or_create(
-                site=site,
-                program_uuid=program.uuid,
-                defaults={
-                    "is_active": True,
-                    "language": "en",
-                },
+                site=site, program_uuid=program.uuid, defaults={"is_active": True, "language": "en"}
             )
             program_certificate.signatories.set(signatories)
             program_certificate.save()
@@ -243,10 +231,7 @@ class Command(BaseCommand):
             course_certificate, created = CourseCertificate.objects.update_or_create(
                 site=site,
                 course_id=course_run.key,
-                defaults={
-                    "is_active": True,
-                    "certificate_type": CertificateType.VERIFIED,
-                },
+                defaults={"is_active": True, "certificate_type": CertificateType.VERIFIED},
             )
             course_certificate.signatories.set(signatories)
             course_certificate.save()

@@ -1,12 +1,6 @@
 import logging
 import urllib
 
-from django.conf import settings
-from django.contrib.contenttypes.models import ContentType
-from django.template.defaultfilters import slugify
-from django.urls import reverse
-from edx_ace import Recipient, ace
-
 from credentials.apps.catalog.api import get_course_runs_by_course_run_keys, get_filtered_programs
 from credentials.apps.catalog.data import ProgramStatus
 from credentials.apps.catalog.models import Program
@@ -20,7 +14,11 @@ from credentials.apps.credentials.data import UserCredentialStatus
 from credentials.apps.records.constants import UserCreditPathwayStatus
 from credentials.apps.records.messages import ProgramCreditRequest
 from credentials.apps.records.models import ProgramCertRecord, UserCreditPathway
-
+from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+from django.template.defaultfilters import slugify
+from django.urls import reverse
+from edx_ace import Recipient, ace
 
 logger = logging.getLogger(__name__)
 

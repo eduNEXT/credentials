@@ -3,12 +3,6 @@ import textwrap
 from unittest import mock
 
 import ddt
-from django.contrib.auth import get_user_model
-from django.core import mail
-from django.test import TestCase, override_settings
-from slugify import slugify
-from testfixtures import LogCapture
-
 from credentials.apps.catalog.data import ProgramStatus
 from credentials.apps.catalog.tests.factories import ProgramFactory
 from credentials.apps.core.tests.factories import USER_PASSWORD, UserFactory
@@ -20,7 +14,11 @@ from credentials.apps.credentials.utils import (
     send_program_certificate_created_message,
     validate_duplicate_attributes,
 )
-
+from django.contrib.auth import get_user_model
+from django.core import mail
+from django.test import TestCase, override_settings
+from slugify import slugify
+from testfixtures import LogCapture
 
 User = get_user_model()
 
@@ -97,10 +95,7 @@ class ProgramCertificateIssuedEmailTests(SiteMixin, TestCase):
 
     def _build_expected_plaintext_email_body(self):
         return [
-            "Congratulations on completing the {} {} Program!".format(
-                self.program.title,
-                self.program.type,
-            ),
+            "Congratulations on completing the {} {} Program!".format(self.program.title, self.program.type),
             "Sincerely,",
             "The {} Team".format(self.site.siteconfiguration.platform_name),
             textwrap.dedent(self.default_config.plaintext_template),

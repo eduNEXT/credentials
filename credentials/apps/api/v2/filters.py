@@ -1,10 +1,9 @@
 import django_filters
-from django.core.exceptions import ValidationError
-from django.db.models import Q
-
 from credentials.apps.catalog.models import Program
 from credentials.apps.credentials.models import UserCredential
 from credentials.apps.credentials.utils import filter_visible
+from django.core.exceptions import ValidationError
+from django.db.models import Q
 
 
 class ProgramRelatedFilter(django_filters.Filter):
@@ -44,9 +43,4 @@ class UserCredentialFilter(django_filters.FilterSet):
 
     class Meta:
         model = UserCredential
-        fields = [
-            "program_uuid",
-            "type",
-            "status",
-            "username",
-        ]
+        fields = ["program_uuid", "type", "status", "username"]

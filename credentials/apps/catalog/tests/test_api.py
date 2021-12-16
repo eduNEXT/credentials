@@ -1,7 +1,5 @@
 import uuid
 
-from django.test import TestCase
-
 from credentials.apps.catalog.api import (
     get_course_runs_by_course_run_keys,
     get_filtered_programs,
@@ -17,6 +15,7 @@ from credentials.apps.catalog.tests.factories import (
 )
 from credentials.apps.core.tests.mixins import SiteMixin
 from credentials.apps.credentials.tests.factories import CourseCertificateFactory
+from django.test import TestCase
 
 
 class APITests(TestCase):
@@ -45,11 +44,7 @@ class GetCourseRunsByCourseRunKeysTests(SiteMixin, TestCase):
         self.course = CourseFactory.create(site=self.site)
         self.course_runs = CourseRunFactory.create_batch(2, course=self.course)
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
 
     def test_get_course_runs_by_course_run_keys_zero(self):

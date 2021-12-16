@@ -5,14 +5,13 @@ import json
 from time import time
 
 import jwt
-from django.conf import settings
-from django.contrib.auth.models import Group
-from rest_framework.test import APIRequestFactory
 
 from credentials.apps.api.v2.serializers import UserCredentialSerializer
 from credentials.apps.core.constants import Role
 from credentials.apps.core.tests.factories import UserFactory
-
+from django.conf import settings
+from django.contrib.auth.models import Group
+from rest_framework.test import APIRequestFactory
 
 JWT_AUTH = "JWT_AUTH"
 

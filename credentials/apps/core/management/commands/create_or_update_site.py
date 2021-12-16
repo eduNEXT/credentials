@@ -1,11 +1,9 @@
 """ Creates or updates a Site including SiteConfiguration data. """
 import logging
 
+from credentials.apps.core.models import SiteConfiguration
 from django.contrib.sites.models import Site
 from django.core.management import BaseCommand, CommandError
-
-from credentials.apps.core.models import SiteConfiguration
-
 
 logger = logging.getLogger(__name__)
 

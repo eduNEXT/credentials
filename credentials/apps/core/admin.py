@@ -1,11 +1,10 @@
 """ Admin configuration for core models. """
 
+from credentials.apps.core.forms import SiteConfigurationAdminForm
+from credentials.apps.core.models import SiteConfiguration, User
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.utils.translation import gettext_lazy as _
-
-from credentials.apps.core.forms import SiteConfigurationAdminForm
-from credentials.apps.core.models import SiteConfiguration, User
 
 
 class CustomUserAdmin(UserAdmin):

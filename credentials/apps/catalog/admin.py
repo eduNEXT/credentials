@@ -1,6 +1,5 @@
-from django.contrib import admin
-
 from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
+from django.contrib import admin
 
 
 @admin.register(Course)

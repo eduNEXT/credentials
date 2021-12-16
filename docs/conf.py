@@ -23,9 +23,7 @@ import edx_theme
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = [
-    "edx_theme",
-]
+extensions = ["edx_theme"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -181,9 +179,7 @@ latex_elements = {
 
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
-latex_documents = [
-    ("index", "credentials.tex", "credentials Documentation", "edX", "manual"),
-]
+latex_documents = [("index", "credentials.tex", "credentials Documentation", "edX", "manual")]
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -222,7 +218,7 @@ man_pages = [("index", "credentials", "credentials Documentation", ["edX"], 1)]
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    ("index", "credentials", "credentials Documentation", "edX", "credentials", "credentials", "Miscellaneous"),
+    ("index", "credentials", "credentials Documentation", "edX", "credentials", "credentials", "Miscellaneous")
 ]
 
 

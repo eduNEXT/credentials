@@ -2,6 +2,7 @@
 import logging
 import uuid
 
+from credentials.apps.core.constants import Status
 from django.conf import settings
 from django.contrib.auth import authenticate, get_user_model, login
 from django.db import DatabaseError, connection, transaction
@@ -11,9 +12,6 @@ from django.template import TemplateDoesNotExist
 from django.template.loader import select_template
 from django.views.generic import View
 from edx_django_utils.monitoring import ignore_transaction
-
-from credentials.apps.core.constants import Status
-
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -50,12 +48,7 @@ def health(_):
 
     overall_status = Status.OK if (database_status == Status.OK) else Status.UNAVAILABLE
 
-    data = {
-        "overall_status": overall_status,
-        "detailed_status": {
-            "database_status": database_status,
-        },
-    }
+    data = {"overall_status": overall_status, "detailed_status": {"database_status": database_status}}
 
     if overall_status == Status.OK:
         return JsonResponse(data)

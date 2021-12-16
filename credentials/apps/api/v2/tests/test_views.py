@@ -3,14 +3,6 @@ from decimal import Decimal
 from unittest import mock
 
 import ddt
-from django.contrib.auth.models import Permission
-from django.core.exceptions import ObjectDoesNotExist
-from django.test import TestCase
-from django.urls import reverse
-from rest_framework.renderers import JSONRenderer
-from rest_framework.test import APIRequestFactory, APITestCase
-from waffle.testutils import override_switch
-
 from credentials.apps.api.tests.mixins import JwtMixin
 from credentials.apps.api.v2.serializers import (
     UserCredentialAttributeSerializer,
@@ -30,7 +22,13 @@ from credentials.apps.credentials.tests.factories import (
 )
 from credentials.apps.records.models import UserGrade
 from credentials.apps.records.tests.factories import UserGradeFactory
-
+from django.contrib.auth.models import Permission
+from django.core.exceptions import ObjectDoesNotExist
+from django.test import TestCase
+from django.urls import reverse
+from rest_framework.renderers import JSONRenderer
+from rest_framework.test import APIRequestFactory, APITestCase
+from waffle.testutils import override_switch
 
 JSON_CONTENT_TYPE = "application/json"
 LOGGER_NAME = "credentials.apps.credentials.issuers"
@@ -90,12 +88,7 @@ class CredentialViewSetTests(SiteMixin, APITestCase):
             "credential": {"program_uuid": str(program_certificate.program_uuid)},
             "status": "awarded",
             "date_override": None,
-            "attributes": [
-                {
-                    "name": expected_attribute_name,
-                    "value": expected_attribute_value,
-                }
-            ],
+            "attributes": [{"name": expected_attribute_name, "value": expected_attribute_value}],
         }
 
         # Verify users without the add permission are denied access
@@ -126,14 +119,8 @@ class CredentialViewSetTests(SiteMixin, APITestCase):
             "lms_user_id": 123,
             "credential": {"program_uuid": str(program_certificate.program_uuid)},
             "attributes": [
-                {
-                    "name": "attr-name",
-                    "value": "attr-value",
-                },
-                {
-                    "name": "attr-name",
-                    "value": "another-attr-value",
-                },
+                {"name": "attr-name", "value": "attr-value"},
+                {"name": "attr-name", "value": "another-attr-value"},
             ],
         }
 
@@ -188,12 +175,7 @@ class CredentialViewSetTests(SiteMixin, APITestCase):
             "credential": {"course_run_key": course_run.key, "mode": "verified", "type": "course-run"},
             "status": "awarded",
             "date_override": {"date": expected_date_override},
-            "attributes": [
-                {
-                    "name": expected_attribute_name,
-                    "value": expected_attribute_value,
-                }
-            ],
+            "attributes": [{"name": expected_attribute_name, "value": expected_attribute_value}],
         }
 
         self.authenticate_user(self.user)
@@ -361,11 +343,7 @@ class CredentialViewSetTests(SiteMixin, APITestCase):
         course_cred = UserCredentialFactory(credential=course_certificate)
         program_cred = UserCredentialFactory(credential=program_certificate)
 
-        UserCredentialAttributeFactory(
-            user_credential=program_cred,
-            name="visible_date",
-            value="9999-01-01T01:01:01Z",
-        )
+        UserCredentialAttributeFactory(user_credential=program_cred, name="visible_date", value="9999-01-01T01:01:01Z")
 
         self.authenticate_user(self.user)
         self.add_user_permission(self.user, "view_usercredential")
@@ -400,10 +378,7 @@ class CredentialViewSetTests(SiteMixin, APITestCase):
         program_certificate.program = program
         program_certificate.save()
         program_credential = UserCredentialFactory(username=self.user.username, credential=program_certificate)
-        course_credential = UserCredentialFactory.create(
-            username=self.user.username,
-            credential=course_certificate,
-        )
+        course_credential = UserCredentialFactory.create(username=self.user.username, credential=course_certificate)
 
         self.authenticate_user(self.user)
         self.add_user_permission(self.user, "view_usercredential")
@@ -571,11 +546,7 @@ class GradeViewSetTests(SiteMixin, APITestCase):
     @ddt.data("put", "patch")
     def test_update(self, method):
         """Verify the endpoint supports updating the status of a UserGrade, but no other fields."""
-        grade = UserGradeFactory(
-            course_run=self.course_run,
-            username=self.user.username,
-            letter_grade="C",
-        )
+        grade = UserGradeFactory(course_run=self.course_run, username=self.user.username, letter_grade="C")
         path = reverse("api:v2:grades-detail", kwargs={"pk": grade.id})
 
         # Verify users without the change permission are denied access

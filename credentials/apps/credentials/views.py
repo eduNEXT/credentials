@@ -2,6 +2,11 @@ import datetime
 import logging
 import uuid
 
+from credentials.apps.catalog.data import OrganizationDetails, ProgramDetails
+from credentials.apps.core.views import ThemeViewMixin
+from credentials.apps.credentials.exceptions import MissingCertificateLogoError
+from credentials.apps.credentials.models import ProgramCertificate, UserCredential
+from credentials.apps.credentials.utils import get_credential_visible_date, to_language
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404
@@ -10,15 +15,9 @@ from django.template.defaultfilters import slugify
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.utils.functional import cached_property
-from django.utils.translation import gettext as _, override
+from django.utils.translation import gettext as _
+from django.utils.translation import override
 from django.views.generic import TemplateView
-
-from credentials.apps.catalog.data import OrganizationDetails, ProgramDetails
-from credentials.apps.core.views import ThemeViewMixin
-from credentials.apps.credentials.exceptions import MissingCertificateLogoError
-from credentials.apps.credentials.models import ProgramCertificate, UserCredential
-from credentials.apps.credentials.utils import get_credential_visible_date, to_language
-
 
 logger = logging.getLogger(__name__)
 
@@ -246,10 +245,7 @@ class ExampleCredential(SocialMediaMixin, ThemeViewMixin, TemplateView):
                         "program_details": program_details,
                     },
                 },
-                "user_data": {
-                    "name": "John Doe",
-                    "username": self.request.user.username,
-                },
+                "user_data": {"name": "John Doe", "username": self.request.user.username},
                 "child_templates": {
                     "credential": self.select_theme_template(
                         ["credentials/programs/{type}/certificate.html".format(type=slugify(program_type))]

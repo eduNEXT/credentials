@@ -1,8 +1,7 @@
 """ Tests for catalog models. """
 
-from django.test import TestCase
-
 from credentials.apps.catalog.tests.factories import CourseFactory, CourseRunFactory
+from django.test import TestCase
 
 
 class CourseRunTests(TestCase):

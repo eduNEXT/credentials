@@ -1,9 +1,8 @@
 import abc
 
+from acceptance_tests.config import BASIC_AUTH_PASSWORD, BASIC_AUTH_USERNAME, CREDENTIALS_API_URL, LMS_ROOT_URL
 from bok_choy.page_object import PageObject
 from bok_choy.promise import EmptyPromise
-
-from acceptance_tests.config import BASIC_AUTH_PASSWORD, BASIC_AUTH_USERNAME, CREDENTIALS_API_URL, LMS_ROOT_URL
 
 
 class CredentialsDRFPage(PageObject):

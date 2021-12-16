@@ -3,12 +3,10 @@
 import logging
 import sys
 
-from django.contrib.sites.models import Site
-from django.core.management import BaseCommand
-
 from credentials.apps.catalog.utils import CatalogDataSynchronizer
 from credentials.apps.core.models import SiteConfiguration
-
+from django.contrib.sites.models import Site
+from django.core.management import BaseCommand
 
 logger = logging.getLogger(__name__)
 

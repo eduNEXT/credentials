@@ -3,8 +3,6 @@ Tests for Issuer class.
 """
 from unittest import mock
 
-from django.test import TestCase, override_settings
-
 from credentials.apps.api.exceptions import DuplicateAttributeError
 from credentials.apps.catalog.tests.factories import ProgramFactory
 from credentials.apps.core.tests.factories import SiteConfigurationFactory, SiteFactory, UserFactory
@@ -16,7 +14,7 @@ from credentials.apps.credentials.models import (
     UserCredentialAttribute,
 )
 from credentials.apps.credentials.tests.factories import CourseCertificateFactory, ProgramCertificateFactory
-
+from django.test import TestCase, override_settings
 
 LOGGER_NAME = "credentials.apps.credentials.issuers"
 

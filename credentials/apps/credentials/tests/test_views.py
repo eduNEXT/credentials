@@ -6,14 +6,6 @@ from unittest.mock import PropertyMock, patch
 
 import ddt
 import responses
-from django.template import Context, Template
-from django.template.loader import select_template
-from django.test import TestCase
-from django.urls import reverse
-from django.utils.text import slugify
-from faker import Faker
-from waffle.testutils import override_switch
-
 from credentials.apps.catalog.data import OrganizationDetails, ProgramDetails
 from credentials.apps.catalog.tests.factories import CourseFactory, CourseRunFactory, ProgramFactory
 from credentials.apps.core.tests.factories import USER_PASSWORD, SiteConfigurationFactory, UserFactory
@@ -22,16 +14,19 @@ from credentials.apps.credentials.exceptions import MissingCertificateLogoError
 from credentials.apps.credentials.models import ProgramCertificate, UserCredential
 from credentials.apps.credentials.templatetags import i18n_assets
 from credentials.apps.credentials.tests import factories
+from django.template import Context, Template
+from django.template.loader import select_template
+from django.test import TestCase
+from django.urls import reverse
+from django.utils.text import slugify
+from faker import Faker
+from waffle.testutils import override_switch
 
 
 @ddt.ddt
 class RenderCredentialViewTests(SiteMixin, TestCase):
     faker = Faker()
-    MOCK_USER_DATA = {
-        "username": "test-user",
-        "name": "Test User",
-        "email": "test@example.org",
-    }
+    MOCK_USER_DATA = {"username": "test-user", "name": "Test User", "email": "test@example.org"}
     PROGRAM_NAME = "Fake PC"
     PROGRAM_TYPE = "Professional Certificate"
     CREDENTIAL_TITLE = "Fake Custom Credential Title"
@@ -57,16 +52,11 @@ class RenderCredentialViewTests(SiteMixin, TestCase):
             username=self.MOCK_USER_DATA["username"], credential=self.program_certificate
         )
         self.course_user_credentials = [
-            factories.UserCredentialFactory.create(
-                username=self.MOCK_USER_DATA["username"],
-                credential=course_cert,
-            )
+            factories.UserCredentialFactory.create(username=self.MOCK_USER_DATA["username"], credential=course_cert)
             for course_cert in self.course_certificates
         ]
         self.visible_date_attr = factories.UserCredentialAttributeFactory(
-            user_credential=self.user_credential,
-            name="visible_date",
-            value="1970-01-01T01:01:01Z",
+            user_credential=self.user_credential, name="visible_date", value="1970-01-01T01:01:01Z"
         )
         self.platform_name = self.site.siteconfiguration.platform_name
         user = UserFactory(username=self.MOCK_USER_DATA["username"])
@@ -204,9 +194,7 @@ class RenderCredentialViewTests(SiteMixin, TestCase):
         they are not associated with.
         """
         domain = "unused.testsite"
-        site_configuration = SiteConfigurationFactory(
-            site__domain=domain,
-        )
+        site_configuration = SiteConfigurationFactory(site__domain=domain)
         test_site = site_configuration.site
         test_program_certificate = factories.ProgramCertificateFactory(site=test_site)
         test_signatory_1 = factories.SignatoryFactory()
@@ -294,9 +282,7 @@ class RenderCredentialViewTests(SiteMixin, TestCase):
         """Verify that the view renders the visible_date as the issue date."""
         for course_user_credential in self.course_user_credentials:
             factories.UserCredentialAttributeFactory(
-                user_credential=course_user_credential,
-                name="visible_date",
-                value="2021-01-01T01:01:01Z",
+                user_credential=course_user_credential, name="visible_date", value="2021-01-01T01:01:01Z"
             )
         for cert in self.course_certificates:
             cert.certificate_available_date = None
@@ -362,27 +348,15 @@ class RenderCredentialViewTests(SiteMixin, TestCase):
         Verify that the view renders certificates correctly if the user choose
         their verified name to be used on certificates
         """
-        user_data = {
-            "name": "John Doe",
-            "verified_name": "Jonathan Doe",
-            "use_verified_name_for_certs": True,
-        }
+        user_data = {"name": "John Doe", "verified_name": "Jonathan Doe", "use_verified_name_for_certs": True}
         response = self._render_user_credential(test_user_data=user_data)
         self.assertContains(response, user_data["verified_name"])
 
 
 class RenderExampleCredentialViewTests(SiteMixin, TestCase):
     faker = Faker()
-    MOCK_USER_DATA = {
-        "username": "test-user",
-        "name": "Test User",
-        "email": "test@example.org",
-    }
-    MOCK_STAFF_USER_DATA = {
-        "username": "staff-test-user",
-        "name": "Staff User",
-        "email": "staff@example.org",
-    }
+    MOCK_USER_DATA = {"username": "test-user", "name": "Test User", "email": "test@example.org"}
+    MOCK_STAFF_USER_DATA = {"username": "staff-test-user", "name": "Staff User", "email": "staff@example.org"}
     PROGRAM_NAME = "Fake PC"
     PROGRAM_TYPE = "Professional Certificate"
     CREDENTIAL_TITLE = "Fake Custom Credential Title"
@@ -413,11 +387,7 @@ class RenderExampleCredentialViewTests(SiteMixin, TestCase):
             certificate_logo_image_url=self.faker.url() if use_proper_logo_url else None,
         )
 
-    def _render_user_credential(
-        self,
-        test_user_data,
-        use_proper_logo_url=True,
-    ):
+    def _render_user_credential(self, test_user_data, use_proper_logo_url=True):
         """Helper method to render a user certificate."""
         program_certificate = self.program_certificate
         organizations = [
@@ -495,13 +465,7 @@ class I18nAssetsTemplateTagTest(TestCase):
         language = "en"
         default = "en"
         paths = i18n_assets.construct_file_language_names(filepath, language, default)
-        self.assertEqual(
-            paths,
-            [
-                "some/test/path-en.svg",
-                "some/test/path.svg",
-            ],
-        )
+        self.assertEqual(paths, ["some/test/path-en.svg", "some/test/path.svg"])
 
     def test_translate_file_path_filter(self):
         """Verify that the filter correctly filters an image"""

@@ -10,15 +10,6 @@ import uuid
 from unittest.mock import patch
 
 import ddt
-from django.contrib.contenttypes.models import ContentType
-from django.core import mail
-from django.template.defaultfilters import slugify
-from django.template.loader import select_template
-from django.test import TestCase
-from django.test.utils import override_settings
-from django.urls import reverse
-from waffle.testutils import override_switch
-
 from credentials.apps.catalog.models import Program
 from credentials.apps.catalog.tests.factories import (
     CourseFactory,
@@ -47,18 +38,21 @@ from credentials.apps.records.tests.factories import (
 )
 from credentials.apps.records.tests.utils import dump_random_state
 from credentials.shared.constants import PathwayType
-
+from django.contrib.contenttypes.models import ContentType
+from django.core import mail
+from django.template.defaultfilters import slugify
+from django.template.loader import select_template
+from django.test import TestCase
+from django.test.utils import override_settings
+from django.urls import reverse
+from waffle.testutils import override_switch
 
 JSON_CONTENT_TYPE = "application/json"
 
 
 @ddt.ddt
 class RecordsViewTests(SiteMixin, TestCase):
-    MOCK_USER_DATA = {
-        "username": "test-user",
-        "name": "Test User",
-        "email": "test@example.org",
-    }
+    MOCK_USER_DATA = {"username": "test-user", "name": "Test User", "email": "test@example.org"}
 
     def setUp(self):
         super().setUp()
@@ -72,11 +66,7 @@ class RecordsViewTests(SiteMixin, TestCase):
             title="TestProgram1", course_runs=self.course_runs, authoring_organizations=self.orgs, site=self.site
         )
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
         self.program_cert = ProgramCertificateFactory.create(program_uuid=self.program.uuid, site=self.site)
         self.course_credential_content_type = ContentType.objects.get(
@@ -137,15 +127,7 @@ class RecordsViewTests(SiteMixin, TestCase):
 
     def test_xss(self):
         """Verify that the view protects against xss in translations."""
-        response = self._render_records(
-            [
-                {
-                    "name": "<xss>",
-                    "partner": "XSS",
-                    "uuid": "uuid",
-                },
-            ]
-        )
+        response = self._render_records([{"name": "<xss>", "partner": "XSS", "uuid": "uuid"}])
 
         # Test that the data is parsed from an escaped string
         self.assertContains(
@@ -165,12 +147,7 @@ class RecordsViewTests(SiteMixin, TestCase):
         self.assertIn("records_help_url", response_context_data)
         self.assertNotEqual(response_context_data["records_help_url"], "")
 
-    @ddt.data(
-        (Program.ACTIVE, True),
-        (Program.RETIRED, True),
-        (Program.DELETED, False),
-        (Program.UNPUBLISHED, False),
-    )
+    @ddt.data((Program.ACTIVE, True), (Program.RETIRED, True), (Program.DELETED, False), (Program.UNPUBLISHED, False))
     @ddt.unpack
     def test_completed_render_from_db(self, status, visible):
         """Verify that a program cert that is completed is returned correctly, with different statuses"""
@@ -216,9 +193,7 @@ class RecordsViewTests(SiteMixin, TestCase):
     def test_not_visible_from_db(self):
         """Test that the program's visible_date is considered"""
         UserCredentialAttributeFactory(
-            user_credential=self.program_user_credential,
-            name="visible_date",
-            value="9999-01-01T01:01:01Z",
+            user_credential=self.program_user_credential, name="visible_date", value="9999-01-01T01:01:01Z"
         )
         response = self.client.get(reverse("records:index"))
         self.assertFalse(json.loads(response.context_data["programs"])[0]["completed"])
@@ -290,11 +265,7 @@ class RecordsViewTests(SiteMixin, TestCase):
 # This view shares almost all the code with RecordsView above. So we'll just test the interesting differences.
 @ddt.ddt
 class ProgramListingViewTests(SiteMixin, TestCase):
-    MOCK_USER_DATA = {
-        "username": "test-user",
-        "name": "Test User",
-        "email": "test@example.org",
-    }
+    MOCK_USER_DATA = {"username": "test-user", "name": "Test User", "email": "test@example.org"}
 
     def setUp(self):
         super().setUp()
@@ -308,11 +279,7 @@ class ProgramListingViewTests(SiteMixin, TestCase):
             title="TestProgram1", course_runs=self.course_runs, authoring_organizations=self.orgs, site=self.site
         )
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
         self.program_cert = ProgramCertificateFactory.create(program_uuid=self.program.uuid, site=self.site)
         self.course_credential_content_type = ContentType.objects.get(
@@ -358,7 +325,7 @@ class ProgramListingViewTests(SiteMixin, TestCase):
                 "type": slugify(self.program.type),
                 "completed": True,
                 "empty": False,
-            },
+            }
         ]
 
         if overrides is not None:
@@ -446,11 +413,7 @@ class ProgramListingViewTests(SiteMixin, TestCase):
 
 @ddt.ddt
 class ProgramRecordViewTests(SiteMixin, TestCase):
-    MOCK_USER_DATA = {
-        "username": "test-user",
-        "name": "Test User",
-        "email": "test@example.org",
-    }
+    MOCK_USER_DATA = {"username": "test-user", "name": "Test User", "email": "test@example.org"}
 
     def setUp(self):
         super().setUp()
@@ -641,11 +604,7 @@ class ProgramRecordViewTests(SiteMixin, TestCase):
         self.assertEqual(grades[0]["course_id"], self.course_runs[0].key)  # 0 instead of 1 now that 1 is in future
         self.assertEqual(grades[0]["issue_date"], self.user_credentials[0].created.isoformat())
 
-    @ddt.data(
-        ("9999-01-01T01:01:01Z", False),
-        ("1970-01-01T01:01:01Z", True),
-        (None, True),
-    )
+    @ddt.data(("9999-01-01T01:01:01Z", False), ("1970-01-01T01:01:01Z", True), (None, True))
     @ddt.unpack
     def test_program_visible_date(self, date, completed):
         """Test that the program's visible_date is considered"""
@@ -655,11 +614,7 @@ class ProgramRecordViewTests(SiteMixin, TestCase):
             credential=self.program_cert,
         )
         if date:
-            UserCredentialAttributeFactory(
-                user_credential=program_credential,
-                name="visible_date",
-                value=date,
-            )
+            UserCredentialAttributeFactory(user_credential=program_credential, name="visible_date", value=date)
         response = self.client.get(reverse("records:private_programs", kwargs={"uuid": self.program.uuid.hex}))
         self.assertEqual(json.loads(response.context_data["record"])["program"]["completed"], completed)
 
@@ -681,11 +636,7 @@ class ProgramRecordViewTests(SiteMixin, TestCase):
     def test_visible_date_as_issue_date_with_no_certificate_available_date(self):
         """Verify that we show visible date when no cert available date"""
         test_date = "2021-01-01T01:01:01Z"
-        UserCredentialAttributeFactory(
-            user_credential=self.user_credentials[1],
-            name="visible_date",
-            value=test_date,
-        )
+        UserCredentialAttributeFactory(user_credential=self.user_credentials[1], name="visible_date", value=test_date)
 
         response = self.client.get(reverse("records:private_programs", kwargs={"uuid": self.program.uuid.hex}))
         grades = json.loads(response.context_data["record"])["grades"]
@@ -714,11 +665,7 @@ class ProgramRecordViewTests(SiteMixin, TestCase):
         self.assertEqual(grades[0]["course_id"], self.course_runs[0].key)  # 0 instead of 1 now that 1 is in future
         self.assertEqual(grades[0]["issue_date"], self.user_credentials[0].created.isoformat())
 
-    @ddt.data(
-        ("9999-01-01T01:01:01Z", False),
-        ("1970-01-01T01:01:01Z", True),
-        (None, True),
-    )
+    @ddt.data(("9999-01-01T01:01:01Z", False), ("1970-01-01T01:01:01Z", True), (None, True))
     @ddt.unpack
     @override_switch("credentials.use_certificate_available_date", active=True)
     def test_program_visible_date_with_certificate_available_date(self, date, completed):
@@ -902,14 +849,7 @@ class ProgramRecordViewTests(SiteMixin, TestCase):
     def test_xss(self):
         """Verify that the view protects against xss in translations."""
         response = self._render_program_record(
-            {
-                "name": "<xss>",
-                "program": {
-                    "name": "<xss>",
-                    "school": "XSS School",
-                },
-                "uuid": "uuid",
-            }
+            {"name": "<xss>", "program": {"name": "<xss>", "school": "XSS School"}, "uuid": "uuid"}
         )
 
         # Test that the data is parsed from an escaped string
@@ -1124,11 +1064,7 @@ class ProgramSendTests(SiteMixin, TestCase):
 
 
 class ProgramRecordCsvViewTests(SiteMixin, TestCase):
-    MOCK_USER_DATA = {
-        "username": "test-user",
-        "name": "Test User",
-        "email": "test@example.org",
-    }
+    MOCK_USER_DATA = {"username": "test-user", "name": "Test User", "email": "test@example.org"}
 
     def setUp(self):
         super().setUp()
@@ -1235,11 +1171,7 @@ class ProgramRecordCsvViewTests(SiteMixin, TestCase):
 class MasqueradeBannerFactoryTests(SiteMixin, TestCase):
     """Tests for verifying proper loading of the Masquerade Banner Factory."""
 
-    MOCK_USER_DATA = {
-        "username": "test-user",
-        "name": "Test User",
-        "email": "test@example.org",
-    }
+    MOCK_USER_DATA = {"username": "test-user", "name": "Test User", "email": "test@example.org"}
 
     def setUp(self):
         super().setUp()
@@ -1257,10 +1189,7 @@ class MasqueradeBannerFactoryTests(SiteMixin, TestCase):
 
         return response
 
-    @ddt.data(
-        "records",
-        "programs",
-    )
+    @ddt.data("records", "programs")
     def test_masquerade_banner_will_appear_for_staff(self, page):
         """Verify that staff will see the masquerade bar."""
         staff = UserFactory(username="test-staff", is_staff=True)
@@ -1268,10 +1197,7 @@ class MasqueradeBannerFactoryTests(SiteMixin, TestCase):
         response = self._render_page(page)
         self.assertContains(response, "MasqueradeBannerFactory")
 
-    @ddt.data(
-        "records",
-        "programs",
-    )
+    @ddt.data("records", "programs")
     def test_masquerade_banner_will_appear_for_masqueraders(self, page):
         """Verify that masqueraders will see the masquerade bar."""
         session = self.client.session
@@ -1280,10 +1206,7 @@ class MasqueradeBannerFactoryTests(SiteMixin, TestCase):
         response = self._render_page(page)
         self.assertContains(response, "MasqueradeBannerFactory")
 
-    @ddt.data(
-        "records",
-        "programs",
-    )
+    @ddt.data("records", "programs")
     def test_masquerade_banner_will_not_appear(self, page):
         """Verify that the masquerade banner will not appear for other users."""
         response = self._render_page(page)

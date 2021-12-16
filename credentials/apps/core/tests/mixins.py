@@ -1,13 +1,11 @@
 import json
 
 import responses
+from credentials.apps.core.tests.factories import SiteConfigurationFactory
 from django.conf import settings
 from django.contrib.sites.models import Site
 from django.core.cache import cache
 from edx_django_utils.cache import TieredCache
-
-from credentials.apps.core.tests.factories import SiteConfigurationFactory
-
 
 JSON = "application/json"
 
@@ -33,12 +31,7 @@ class SiteMixin:
         oauth2_provider_url = settings.BACKEND_SERVICE_EDX_OAUTH2_PROVIDER_URL
         url = f"{oauth2_provider_url}/access_token"
         token = "abc123"
-        body = json.dumps(
-            {
-                "access_token": token,
-                "expires_in": 3600,
-            }
-        )
+        body = json.dumps({"access_token": token, "expires_in": 3600})
         responses.add(responses.POST, url, body=body, content_type=JSON, status=status)
 
         return token

@@ -1,8 +1,7 @@
 from unittest import mock
 
-from django.test import TestCase
-
 from credentials.apps.credentials.templatetags.html import month
+from django.test import TestCase
 
 
 @mock.patch("credentials.apps.credentials.templatetags.html.date")

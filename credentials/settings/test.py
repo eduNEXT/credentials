@@ -4,9 +4,7 @@ from pathlib import Path as path
 from credentials.settings.base import *
 from credentials.settings.utils import get_logger_config
 
-INSTALLED_APPS += [
-    "credentials.apps.edx_credentials_extensions",
-]
+INSTALLED_APPS += ["credentials.apps.edx_credentials_extensions"]
 
 LOGGING = get_logger_config(debug=False, dev_env=True, local_loglevel="DEBUG")
 ALLOWED_HOSTS = ["*"]
@@ -20,7 +18,7 @@ DATABASES = {
         "HOST": os.environ.get("DB_HOST", ""),
         "PORT": os.environ.get("DB_PORT", ""),
         "CONN_MAX_AGE": int(os.environ.get("CONN_MAX_AGE", 0)),
-    },
+    }
 }
 
 CACHES = {

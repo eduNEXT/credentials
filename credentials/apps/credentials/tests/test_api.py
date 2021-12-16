@@ -1,6 +1,3 @@
-from django.contrib.contenttypes.models import ContentType
-from django.test import TestCase
-
 from credentials.apps.catalog.tests.factories import (
     CourseFactory,
     CourseRunFactory,
@@ -20,6 +17,8 @@ from credentials.apps.credentials.tests.factories import (
     ProgramCertificateFactory,
     UserCredentialFactory,
 )
+from django.contrib.contenttypes.models import ContentType
+from django.test import TestCase
 
 
 class GetCourseCertificatesWithIdsTests(SiteMixin, TestCase):
@@ -30,11 +29,7 @@ class GetCourseCertificatesWithIdsTests(SiteMixin, TestCase):
         self.course = CourseFactory.create(site=self.site)
         self.course_runs = CourseRunFactory.create_batch(2, course=self.course)
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
         self.course_credential_content_type = ContentType.objects.get(
             app_label="credentials", model="coursecertificate"
@@ -138,11 +133,7 @@ class GetUserCredentialsByContentTypeTests(SiteMixin, TestCase):
             title="TestProgram1", course_runs=self.course_runs, authoring_organizations=self.orgs, site=self.site
         )
         self.course_certs = [
-            CourseCertificateFactory.create(
-                course_id=course_run.key,
-                site=self.site,
-            )
-            for course_run in self.course_runs
+            CourseCertificateFactory.create(course_id=course_run.key, site=self.site) for course_run in self.course_runs
         ]
         self.program_cert = ProgramCertificateFactory.create(program_uuid=self.program.uuid, site=self.site)
         self.course_credential_content_type = ContentType.objects.get(

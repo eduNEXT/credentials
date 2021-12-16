@@ -5,6 +5,11 @@ import logging
 import uuid
 
 import bleach
+from credentials.apps.catalog.api import get_program_details_by_uuid
+from credentials.apps.catalog.models import CourseRun, Program
+from credentials.apps.core.utils import _choices
+from credentials.apps.credentials import constants
+from credentials.apps.credentials.exceptions import NoMatchingProgramException
 from django.conf import settings
 from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
 from django.contrib.contenttypes.models import ContentType
@@ -18,13 +23,6 @@ from django_extensions.db.models import TimeStampedModel
 from opaque_keys import InvalidKeyError
 from opaque_keys.edx.keys import CourseKey
 from simple_history.models import HistoricalRecords
-
-from credentials.apps.catalog.api import get_program_details_by_uuid
-from credentials.apps.catalog.models import CourseRun, Program
-from credentials.apps.core.utils import _choices
-from credentials.apps.credentials import constants
-from credentials.apps.credentials.exceptions import NoMatchingProgramException
-
 
 log = logging.getLogger(__name__)
 
@@ -150,15 +148,9 @@ class UserCredential(TimeStampedModel):
     .. pii_retirement: retained
     """
 
-    AWARDED, REVOKED = (
-        "awarded",
-        "revoked",
-    )
+    AWARDED, REVOKED = ("awarded", "revoked")
 
-    STATUSES_CHOICES = (
-        (AWARDED, _("awarded")),
-        (REVOKED, _("revoked")),
-    )
+    STATUSES_CHOICES = ((AWARDED, _("awarded")), (REVOKED, _("revoked")))
 
     credential_content_type = models.ForeignKey(
         ContentType,
@@ -395,5 +387,5 @@ class UserCredentialDateOverride(TimeStampedModel):
         help_text="The id of the UserCredential that this date overrides",
     )
     date = models.DateTimeField(
-        help_text="The date to override a course certificate with. This is set in the LMS Django Admin.",
+        help_text="The date to override a course certificate with. This is set in the LMS Django Admin."
     )
