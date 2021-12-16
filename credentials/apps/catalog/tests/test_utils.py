@@ -1,7 +1,8 @@
 """ Tests for catalog utilities. """
 from unittest.mock import MagicMock
 
-from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
+from credentials.apps.catalog.models import (Course, CourseRun, Organization,
+                                             Pathway, Program)
 from credentials.apps.catalog.utils import CatalogDataSynchronizer
 from credentials.apps.core.tests.factories import SiteFactory
 from credentials.shared.constants import PathwayType

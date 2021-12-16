@@ -3,7 +3,8 @@ Factories for tests of Credentials.
 """
 from credentials.apps.core.models import SiteConfiguration, User
 from django.contrib.sites.models import Site
-from factory import Faker, PostGenerationMethodCall, Sequence, SubFactory, django, sequence
+from factory import (Faker, PostGenerationMethodCall, Sequence, SubFactory,
+                     django, sequence)
 
 USER_PASSWORD = "password"
 

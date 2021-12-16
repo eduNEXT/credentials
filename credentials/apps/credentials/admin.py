@@ -1,13 +1,11 @@
-from credentials.apps.credentials.forms import ProgramCertificateAdminForm, SignatoryModelForm
-from credentials.apps.credentials.models import (
-    CourseCertificate,
-    ProgramCertificate,
-    ProgramCompletionEmailConfiguration,
-    Signatory,
-    UserCredential,
-    UserCredentialAttribute,
-    UserCredentialDateOverride,
-)
+from credentials.apps.credentials.forms import (ProgramCertificateAdminForm,
+                                                SignatoryModelForm)
+from credentials.apps.credentials.models import (CourseCertificate,
+                                                 ProgramCertificate,
+                                                 ProgramCompletionEmailConfiguration,
+                                                 Signatory, UserCredential,
+                                                 UserCredentialAttribute,
+                                                 UserCredentialDateOverride)
 from django.contrib import admin
 from django.db.models import Q
 

@@ -4,14 +4,13 @@ import logging
 
 from credentials.apps.api.exceptions import DuplicateAttributeError
 from credentials.apps.credentials.constants import UserCredentialStatus
-from credentials.apps.credentials.models import (
-    CourseCertificate,
-    ProgramCertificate,
-    UserCredential,
-    UserCredentialAttribute,
-    UserCredentialDateOverride,
-)
-from credentials.apps.credentials.utils import send_program_certificate_created_message, validate_duplicate_attributes
+from credentials.apps.credentials.models import (CourseCertificate,
+                                                 ProgramCertificate,
+                                                 UserCredential,
+                                                 UserCredentialAttribute,
+                                                 UserCredentialDateOverride)
+from credentials.apps.credentials.utils import (send_program_certificate_created_message,
+                                                validate_duplicate_attributes)
 from credentials.apps.records.utils import send_updated_emails_for_program
 from django.conf import settings
 from django.contrib.contenttypes.models import ContentType

@@ -1,31 +1,26 @@
 import urllib
 
 from credentials.apps.catalog.data import ProgramStatus
-from credentials.apps.catalog.tests.factories import (
-    CourseFactory,
-    CourseRunFactory,
-    OrganizationFactory,
-    PathwayFactory,
-    ProgramFactory,
-)
+from credentials.apps.catalog.tests.factories import (CourseFactory,
+                                                      CourseRunFactory,
+                                                      OrganizationFactory,
+                                                      PathwayFactory,
+                                                      ProgramFactory)
 from credentials.apps.core.tests.factories import USER_PASSWORD, UserFactory
 from credentials.apps.core.tests.mixins import SiteMixin
 from credentials.apps.credentials.data import UserCredentialStatus
-from credentials.apps.credentials.tests.factories import (
-    CourseCertificateFactory,
-    ProgramCertificateFactory,
-    UserCredentialFactory,
-)
+from credentials.apps.credentials.tests.factories import (CourseCertificateFactory,
+                                                          ProgramCertificateFactory,
+                                                          UserCredentialFactory)
 from credentials.apps.records.constants import UserCreditPathwayStatus
-from credentials.apps.records.tests.factories import ProgramCertRecordFactory, UserCreditPathwayFactory
+from credentials.apps.records.tests.factories import (ProgramCertRecordFactory,
+                                                      UserCreditPathwayFactory)
 from credentials.apps.records.tests.utils import dump_random_state
-from credentials.apps.records.utils import (
-    _course_credentials_to_course_runs,
-    _get_credentials,
-    get_user_program_data,
-    masquerading_authorized,
-    send_updated_emails_for_program,
-)
+from credentials.apps.records.utils import (_course_credentials_to_course_runs,
+                                            _get_credentials,
+                                            get_user_program_data,
+                                            masquerading_authorized,
+                                            send_updated_emails_for_program)
 from django.contrib.contenttypes.models import ContentType
 from django.core import mail
 from django.test import TestCase

@@ -1,19 +1,20 @@
 import logging
 
 from credentials.apps.api.v2.filters import UserCredentialFilter
-from credentials.apps.api.v2.permissions import CanReplaceUsername, UserCredentialPermissions
-from credentials.apps.api.v2.serializers import (
-    CourseCertificateSerializer,
-    UserCredentialCreationSerializer,
-    UserCredentialSerializer,
-    UserGradeSerializer,
-)
-from credentials.apps.credentials.models import CourseCertificate, UserCredential
+from credentials.apps.api.v2.permissions import (CanReplaceUsername,
+                                                 UserCredentialPermissions)
+from credentials.apps.api.v2.serializers import (CourseCertificateSerializer,
+                                                 UserCredentialCreationSerializer,
+                                                 UserCredentialSerializer,
+                                                 UserGradeSerializer)
+from credentials.apps.credentials.models import (CourseCertificate,
+                                                 UserCredential)
 from credentials.apps.records.models import UserGrade
 from django.apps import apps
 from django.db import transaction
 from django.db.models import Q
-from edx_rest_framework_extensions.auth.jwt.authentication import JwtAuthentication
+from edx_rest_framework_extensions.auth.jwt.authentication import \
+    JwtAuthentication
 from rest_framework import mixins, permissions, status, viewsets
 from rest_framework.exceptions import Throttled
 from rest_framework.response import Response

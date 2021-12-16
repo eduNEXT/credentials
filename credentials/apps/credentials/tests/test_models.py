@@ -10,17 +10,12 @@ from credentials.apps.catalog.tests.factories import CourseRunFactory
 from credentials.apps.core.tests.mixins import SiteMixin
 from credentials.apps.credentials import constants
 from credentials.apps.credentials.exceptions import NoMatchingProgramException
-from credentials.apps.credentials.models import (
-    CourseCertificate,
-    ProgramCompletionEmailConfiguration,
-    Signatory,
-    UserCredential,
-)
-from credentials.apps.credentials.tests.factories import (
-    ProgramCertificateFactory,
-    SignatoryFactory,
-    UserCredentialFactory,
-)
+from credentials.apps.credentials.models import (CourseCertificate,
+                                                 ProgramCompletionEmailConfiguration,
+                                                 Signatory, UserCredential)
+from credentials.apps.credentials.tests.factories import (ProgramCertificateFactory,
+                                                          SignatoryFactory,
+                                                          UserCredentialFactory)
 from credentials.settings.base import MEDIA_ROOT
 from django.core.exceptions import ValidationError
 from django.core.files.images import ImageFile

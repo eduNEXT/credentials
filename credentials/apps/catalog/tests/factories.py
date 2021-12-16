@@ -7,7 +7,8 @@ from uuid import uuid4
 from pytz import UTC
 
 import factory
-from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
+from credentials.apps.catalog.models import (Course, CourseRun, Organization,
+                                             Pathway, Program)
 from credentials.apps.core.tests.factories import SiteFactory
 from factory.fuzzy import FuzzyDateTime, FuzzyInteger, FuzzyText
 from slugify import slugify

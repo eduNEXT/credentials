@@ -5,12 +5,11 @@ from itertools import groupby
 
 from credentials.apps.catalog.data import ProgramStatus
 from credentials.apps.core.models import User
-from credentials.apps.credentials.messages import ProgramCertificateIssuedMessage
-from credentials.apps.credentials.models import (
-    ProgramCompletionEmailConfiguration,
-    UserCredential,
-    UserCredentialAttribute,
-)
+from credentials.apps.credentials.messages import \
+    ProgramCertificateIssuedMessage
+from credentials.apps.credentials.models import (ProgramCompletionEmailConfiguration,
+                                                 UserCredential,
+                                                 UserCredentialAttribute)
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q

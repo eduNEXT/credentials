@@ -6,13 +6,11 @@ import logging
 from credentials.apps.api.accreditors import Accreditor
 from credentials.apps.catalog.models import CourseRun
 from credentials.apps.credentials.constants import UserCredentialStatus
-from credentials.apps.credentials.models import (
-    CourseCertificate,
-    ProgramCertificate,
-    UserCredential,
-    UserCredentialAttribute,
-    UserCredentialDateOverride,
-)
+from credentials.apps.credentials.models import (CourseCertificate,
+                                                 ProgramCertificate,
+                                                 UserCredential,
+                                                 UserCredentialAttribute,
+                                                 UserCredentialDateOverride)
 from credentials.apps.records.models import UserGrade
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import serializers

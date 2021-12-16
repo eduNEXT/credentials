@@ -1,5 +1,6 @@
 import ddt
-from credentials.apps.core.tests.factories import SiteConfigurationFactory, SiteFactory
+from credentials.apps.core.tests.factories import (SiteConfigurationFactory,
+                                                   SiteFactory)
 from credentials.apps.core.tests.mixins import SiteMixin
 from django.contrib.sites.models import Site
 from django.core.management import CommandError, call_command

@@ -1,6 +1,7 @@
 """ Admin configuration for records models. """
 
-from credentials.apps.records.models import ProgramCertRecord, UserCreditPathway, UserGrade
+from credentials.apps.records.models import (ProgramCertRecord,
+                                             UserCreditPathway, UserGrade)
 from django.contrib import admin
 
 

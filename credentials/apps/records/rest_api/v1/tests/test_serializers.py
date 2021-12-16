@@ -1,16 +1,12 @@
-from credentials.apps.catalog.tests.factories import (
-    CourseFactory,
-    CourseRunFactory,
-    OrganizationFactory,
-    ProgramFactory,
-)
+from credentials.apps.catalog.tests.factories import (CourseFactory,
+                                                      CourseRunFactory,
+                                                      OrganizationFactory,
+                                                      ProgramFactory)
 from credentials.apps.core.tests.factories import UserFactory
 from credentials.apps.core.tests.mixins import SiteMixin
-from credentials.apps.credentials.tests.factories import (
-    CourseCertificateFactory,
-    ProgramCertificateFactory,
-    UserCredentialFactory,
-)
+from credentials.apps.credentials.tests.factories import (CourseCertificateFactory,
+                                                          ProgramCertificateFactory,
+                                                          UserCredentialFactory)
 from credentials.apps.records.rest_api.v1.serializers import ProgramSerializer
 from credentials.apps.records.utils import get_user_program_data
 from django.contrib.contenttypes.models import ContentType

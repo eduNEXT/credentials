@@ -7,11 +7,16 @@ from unittest.mock import PropertyMock, patch
 import ddt
 import responses
 from credentials.apps.catalog.data import OrganizationDetails, ProgramDetails
-from credentials.apps.catalog.tests.factories import CourseFactory, CourseRunFactory, ProgramFactory
-from credentials.apps.core.tests.factories import USER_PASSWORD, SiteConfigurationFactory, UserFactory
+from credentials.apps.catalog.tests.factories import (CourseFactory,
+                                                      CourseRunFactory,
+                                                      ProgramFactory)
+from credentials.apps.core.tests.factories import (USER_PASSWORD,
+                                                   SiteConfigurationFactory,
+                                                   UserFactory)
 from credentials.apps.core.tests.mixins import SiteMixin
 from credentials.apps.credentials.exceptions import MissingCertificateLogoError
-from credentials.apps.credentials.models import ProgramCertificate, UserCredential
+from credentials.apps.credentials.models import (ProgramCertificate,
+                                                 UserCredential)
 from credentials.apps.credentials.templatetags import i18n_assets
 from credentials.apps.credentials.tests import factories
 from django.template import Context, Template

@@ -7,13 +7,13 @@ from credentials.apps.catalog.data import ProgramStatus
 from credentials.apps.catalog.tests.factories import ProgramFactory
 from credentials.apps.core.tests.factories import USER_PASSWORD, UserFactory
 from credentials.apps.core.tests.mixins import SiteMixin
-from credentials.apps.credentials.models import ProgramCompletionEmailConfiguration
-from credentials.apps.credentials.tests.factories import ProgramCertificateFactory
-from credentials.apps.credentials.utils import (
-    datetime_from_visible_date,
-    send_program_certificate_created_message,
-    validate_duplicate_attributes,
-)
+from credentials.apps.credentials.models import \
+    ProgramCompletionEmailConfiguration
+from credentials.apps.credentials.tests.factories import \
+    ProgramCertificateFactory
+from credentials.apps.credentials.utils import (datetime_from_visible_date,
+                                                send_program_certificate_created_message,
+                                                validate_duplicate_attributes)
 from django.contrib.auth import get_user_model
 from django.core import mail
 from django.test import TestCase, override_settings

@@ -1,12 +1,16 @@
 import logging
 from datetime import datetime
 
-from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
+from credentials.apps.catalog.models import (Course, CourseRun, Organization,
+                                             Pathway, Program)
 from credentials.apps.core.models import User
 from credentials.apps.credentials.constants import CertificateType
-from credentials.apps.credentials.models import CourseCertificate, ProgramCertificate, Signatory, UserCredential
+from credentials.apps.credentials.models import (CourseCertificate,
+                                                 ProgramCertificate, Signatory,
+                                                 UserCredential)
 from credentials.apps.records.constants import UserCreditPathwayStatus
-from credentials.apps.records.models import ProgramCertRecord, UserCreditPathway, UserGrade
+from credentials.apps.records.models import (ProgramCertRecord,
+                                             UserCreditPathway, UserGrade)
 from credentials.settings.base import TIME_ZONE_CLASS
 from credentials.shared.constants import PathwayType
 from django.contrib.contenttypes.models import ContentType

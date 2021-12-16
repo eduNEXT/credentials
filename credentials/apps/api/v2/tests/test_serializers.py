@@ -3,23 +3,20 @@ from logging import WARNING
 from uuid import uuid4
 
 import ddt
-from credentials.apps.api.v2.serializers import (
-    CourseCertificateSerializer,
-    CredentialField,
-    UserCredentialAttributeSerializer,
-    UserCredentialCreationSerializer,
-    UserCredentialSerializer,
-    UserGradeSerializer,
-)
-from credentials.apps.catalog.tests.factories import CourseFactory, CourseRunFactory
+from credentials.apps.api.v2.serializers import (CourseCertificateSerializer,
+                                                 CredentialField,
+                                                 UserCredentialAttributeSerializer,
+                                                 UserCredentialCreationSerializer,
+                                                 UserCredentialSerializer,
+                                                 UserGradeSerializer)
+from credentials.apps.catalog.tests.factories import (CourseFactory,
+                                                      CourseRunFactory)
 from credentials.apps.core.tests.mixins import SiteMixin
 from credentials.apps.credentials.models import CourseCertificate
-from credentials.apps.credentials.tests.factories import (
-    CourseCertificateFactory,
-    ProgramCertificateFactory,
-    UserCredentialAttributeFactory,
-    UserCredentialFactory,
-)
+from credentials.apps.credentials.tests.factories import (CourseCertificateFactory,
+                                                          ProgramCertificateFactory,
+                                                          UserCredentialAttributeFactory,
+                                                          UserCredentialFactory)
 from credentials.apps.records.tests.factories import UserGradeFactory
 from django.test import TestCase
 from django.urls import reverse

@@ -1,20 +1,17 @@
 import uuid
 
-from credentials.apps.catalog.api import (
-    get_course_runs_by_course_run_keys,
-    get_filtered_programs,
-    get_program_details_by_uuid,
-)
+from credentials.apps.catalog.api import (get_course_runs_by_course_run_keys,
+                                          get_filtered_programs,
+                                          get_program_details_by_uuid)
 from credentials.apps.catalog.data import ProgramDetails, ProgramStatus
-from credentials.apps.catalog.tests.factories import (
-    CourseFactory,
-    CourseRunFactory,
-    OrganizationFactory,
-    ProgramFactory,
-    SiteFactory,
-)
+from credentials.apps.catalog.tests.factories import (CourseFactory,
+                                                      CourseRunFactory,
+                                                      OrganizationFactory,
+                                                      ProgramFactory,
+                                                      SiteFactory)
 from credentials.apps.core.tests.mixins import SiteMixin
-from credentials.apps.credentials.tests.factories import CourseCertificateFactory
+from credentials.apps.credentials.tests.factories import \
+    CourseCertificateFactory
 from django.test import TestCase
 
 

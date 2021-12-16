@@ -1,4 +1,5 @@
-from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
+from credentials.apps.catalog.models import (Course, CourseRun, Organization,
+                                             Pathway, Program)
 from django.contrib import admin
 
 

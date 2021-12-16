@@ -5,9 +5,12 @@ from unittest.mock import patch
 
 from credentials.apps.api.accreditors import Accreditor
 from credentials.apps.api.exceptions import UnsupportedCredentialTypeError
-from credentials.apps.credentials.issuers import CourseCertificateIssuer, ProgramCertificateIssuer
-from credentials.apps.credentials.models import CourseCertificate, ProgramCertificate
-from credentials.apps.credentials.tests.factories import CourseCertificateFactory, ProgramCertificateFactory
+from credentials.apps.credentials.issuers import (CourseCertificateIssuer,
+                                                  ProgramCertificateIssuer)
+from credentials.apps.credentials.models import (CourseCertificate,
+                                                 ProgramCertificate)
+from credentials.apps.credentials.tests.factories import (CourseCertificateFactory,
+                                                          ProgramCertificateFactory)
 from django.test import TestCase
 from testfixtures import LogCapture
 

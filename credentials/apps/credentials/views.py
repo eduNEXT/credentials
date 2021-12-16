@@ -5,8 +5,10 @@ import uuid
 from credentials.apps.catalog.data import OrganizationDetails, ProgramDetails
 from credentials.apps.core.views import ThemeViewMixin
 from credentials.apps.credentials.exceptions import MissingCertificateLogoError
-from credentials.apps.credentials.models import ProgramCertificate, UserCredential
-from credentials.apps.credentials.utils import get_credential_visible_date, to_language
+from credentials.apps.credentials.models import (ProgramCertificate,
+                                                 UserCredential)
+from credentials.apps.credentials.utils import (get_credential_visible_date,
+                                                to_language)
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.http import Http404

@@ -11,31 +11,26 @@ from unittest.mock import patch
 
 import ddt
 from credentials.apps.catalog.models import Program
-from credentials.apps.catalog.tests.factories import (
-    CourseFactory,
-    CourseRunFactory,
-    OrganizationFactory,
-    PathwayFactory,
-    ProgramFactory,
-)
+from credentials.apps.catalog.tests.factories import (CourseFactory,
+                                                      CourseRunFactory,
+                                                      OrganizationFactory,
+                                                      PathwayFactory,
+                                                      ProgramFactory)
 from credentials.apps.core.tests.factories import USER_PASSWORD, UserFactory
 from credentials.apps.core.tests.mixins import SiteMixin
 from credentials.apps.credentials.constants import UUID_PATTERN
 from credentials.apps.credentials.models import UserCredential
-from credentials.apps.credentials.tests.factories import (
-    CourseCertificateFactory,
-    ProgramCertificateFactory,
-    UserCredentialAttributeFactory,
-    UserCredentialDateOverrideFactory,
-    UserCredentialFactory,
-)
+from credentials.apps.credentials.tests.factories import (CourseCertificateFactory,
+                                                          ProgramCertificateFactory,
+                                                          UserCredentialAttributeFactory,
+                                                          UserCredentialDateOverrideFactory,
+                                                          UserCredentialFactory)
 from credentials.apps.records.constants import UserCreditPathwayStatus
-from credentials.apps.records.models import ProgramCertRecord, UserCreditPathway
-from credentials.apps.records.tests.factories import (
-    ProgramCertRecordFactory,
-    UserCreditPathwayFactory,
-    UserGradeFactory,
-)
+from credentials.apps.records.models import (ProgramCertRecord,
+                                             UserCreditPathway)
+from credentials.apps.records.tests.factories import (ProgramCertRecordFactory,
+                                                      UserCreditPathwayFactory,
+                                                      UserGradeFactory)
 from credentials.apps.records.tests.utils import dump_random_state
 from credentials.shared.constants import PathwayType
 from django.contrib.contenttypes.models import ContentType

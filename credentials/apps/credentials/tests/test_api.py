@@ -1,22 +1,16 @@
-from credentials.apps.catalog.tests.factories import (
-    CourseFactory,
-    CourseRunFactory,
-    OrganizationFactory,
-    ProgramFactory,
-)
+from credentials.apps.catalog.tests.factories import (CourseFactory,
+                                                      CourseRunFactory,
+                                                      OrganizationFactory,
+                                                      ProgramFactory)
 from credentials.apps.core.tests.factories import UserFactory
 from credentials.apps.core.tests.mixins import SiteMixin
-from credentials.apps.credentials.api import (
-    get_course_certificates_with_ids,
-    get_program_certificates_with_ids,
-    get_user_credentials_by_content_type,
-)
+from credentials.apps.credentials.api import (get_course_certificates_with_ids,
+                                              get_program_certificates_with_ids,
+                                              get_user_credentials_by_content_type)
 from credentials.apps.credentials.data import UserCredentialStatus
-from credentials.apps.credentials.tests.factories import (
-    CourseCertificateFactory,
-    ProgramCertificateFactory,
-    UserCredentialFactory,
-)
+from credentials.apps.credentials.tests.factories import (CourseCertificateFactory,
+                                                          ProgramCertificateFactory,
+                                                          UserCredentialFactory)
 from django.contrib.contenttypes.models import ContentType
 from django.test import TestCase
 

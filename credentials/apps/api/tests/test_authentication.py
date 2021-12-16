@@ -3,7 +3,8 @@ Tests for REST API Authentication
 """
 
 import ddt
-from credentials.apps.api.authentication import JwtAuthentication, pipeline_set_user_roles
+from credentials.apps.api.authentication import (JwtAuthentication,
+                                                 pipeline_set_user_roles)
 from credentials.apps.api.tests.mixins import JwtMixin
 from credentials.apps.core.constants import Role
 from credentials.apps.core.tests.factories import UserFactory

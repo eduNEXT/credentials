@@ -10,11 +10,15 @@ from analytics.client import Client as SegmentClient
 from credentials.apps.catalog.models import Pathway, Program
 from credentials.apps.core.models import User
 from credentials.apps.core.views import ThemeViewMixin
-from credentials.apps.credentials.models import ProgramCertificate, UserCredential
-from credentials.apps.credentials.utils import filter_visible, get_credential_visible_date, get_credential_visible_dates
+from credentials.apps.credentials.models import (ProgramCertificate,
+                                                 UserCredential)
+from credentials.apps.credentials.utils import (filter_visible,
+                                                get_credential_visible_date,
+                                                get_credential_visible_dates)
 from credentials.apps.records.constants import UserCreditPathwayStatus
 from credentials.apps.records.messages import ProgramCreditRequest
-from credentials.apps.records.models import ProgramCertRecord, UserCreditPathway, UserGrade
+from credentials.apps.records.models import (ProgramCertRecord,
+                                             UserCreditPathway, UserGrade)
 from credentials.apps.records.utils import get_user_program_data
 from credentials.shared.constants import PathwayType
 from django import http

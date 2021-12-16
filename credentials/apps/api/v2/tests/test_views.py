@@ -4,22 +4,20 @@ from unittest import mock
 
 import ddt
 from credentials.apps.api.tests.mixins import JwtMixin
-from credentials.apps.api.v2.serializers import (
-    UserCredentialAttributeSerializer,
-    UserCredentialSerializer,
-    UserGradeSerializer,
-)
+from credentials.apps.api.v2.serializers import (UserCredentialAttributeSerializer,
+                                                 UserCredentialSerializer,
+                                                 UserGradeSerializer)
 from credentials.apps.api.v2.views import CredentialRateThrottle
-from credentials.apps.catalog.tests.factories import CourseFactory, CourseRunFactory, ProgramFactory
+from credentials.apps.catalog.tests.factories import (CourseFactory,
+                                                      CourseRunFactory,
+                                                      ProgramFactory)
 from credentials.apps.core.tests.factories import USER_PASSWORD, UserFactory
 from credentials.apps.core.tests.mixins import SiteMixin
 from credentials.apps.credentials.models import UserCredential
-from credentials.apps.credentials.tests.factories import (
-    CourseCertificateFactory,
-    ProgramCertificateFactory,
-    UserCredentialAttributeFactory,
-    UserCredentialFactory,
-)
+from credentials.apps.credentials.tests.factories import (CourseCertificateFactory,
+                                                          ProgramCertificateFactory,
+                                                          UserCredentialAttributeFactory,
+                                                          UserCredentialFactory)
 from credentials.apps.records.models import UserGrade
 from credentials.apps.records.tests.factories import UserGradeFactory
 from django.contrib.auth.models import Permission

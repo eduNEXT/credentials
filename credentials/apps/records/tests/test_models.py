@@ -1,10 +1,10 @@
 """ Tests for records models """
-from credentials.apps.catalog.tests.factories import CourseRunFactory, PathwayFactory, ProgramFactory
-from credentials.apps.records.tests.factories import (
-    ProgramCertRecordFactory,
-    UserCreditPathwayFactory,
-    UserGradeFactory,
-)
+from credentials.apps.catalog.tests.factories import (CourseRunFactory,
+                                                      PathwayFactory,
+                                                      ProgramFactory)
+from credentials.apps.records.tests.factories import (ProgramCertRecordFactory,
+                                                      UserCreditPathwayFactory,
+                                                      UserGradeFactory)
 from credentials.shared.constants import PathwayType
 from django.core.exceptions import ValidationError
 from django.db.models.deletion import ProtectedError

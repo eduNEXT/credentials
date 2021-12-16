@@ -11,7 +11,8 @@ from credentials.apps.core.utils import _choices
 from credentials.apps.credentials import constants
 from credentials.apps.credentials.exceptions import NoMatchingProgramException
 from django.conf import settings
-from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelation
+from django.contrib.contenttypes.fields import (GenericForeignKey,
+                                                GenericRelation)
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.sites.models import Site
 from django.core.exceptions import ValidationError

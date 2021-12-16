@@ -6,7 +6,8 @@ import faker
 from credentials.apps.catalog.data import OrganizationDetails, ProgramDetails
 from credentials.apps.core.tests.factories import SiteConfigurationFactory
 from credentials.apps.credentials.forms import ProgramCertificateAdminForm
-from credentials.apps.credentials.tests.factories import ProgramCertificateFactory
+from credentials.apps.credentials.tests.factories import \
+    ProgramCertificateFactory
 from django.test import TestCase
 
 

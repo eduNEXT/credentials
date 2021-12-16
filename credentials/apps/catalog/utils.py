@@ -2,7 +2,8 @@
 import logging
 from urllib.parse import urljoin
 
-from credentials.apps.catalog.models import Course, CourseRun, Organization, Pathway, Program
+from credentials.apps.catalog.models import (Course, CourseRun, Organization,
+                                             Pathway, Program)
 from django.db import transaction
 
 logger = logging.getLogger(__name__)

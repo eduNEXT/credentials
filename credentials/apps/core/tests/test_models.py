@@ -3,7 +3,8 @@ import json
 from unittest import mock
 
 import responses
-from credentials.apps.core.tests.factories import SiteConfigurationFactory, SiteFactory, UserFactory
+from credentials.apps.core.tests.factories import (SiteConfigurationFactory,
+                                                   SiteFactory, UserFactory)
 from credentials.apps.core.tests.mixins import JSON, SiteMixin
 from django.contrib.sites.models import SiteManager
 from django.test import TestCase, override_settings
