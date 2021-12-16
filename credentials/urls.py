@@ -16,6 +16,9 @@ Including another URL
 import os
 
 from auth_backends.urls import oauth2_urlpatterns
+from credentials.apps.core import views as core_views
+from credentials.apps.records.views import ProgramListingView
+from credentials.views import FaviconView, MockToggleStateView
 from django.conf import settings
 from django.conf.urls import include
 from django.conf.urls.static import static
@@ -26,11 +29,6 @@ from django.views.defaults import page_not_found
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-
-from credentials.apps.core import views as core_views
-from credentials.apps.records.views import ProgramListingView
-from credentials.views import FaviconView, MockToggleStateView
-
 
 admin.autodiscover()
 admin.site.site_header = _("Credentials Administration")
